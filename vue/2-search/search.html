@@ -18,32 +18,56 @@
             new Vue({
                 el:'body',
                 data:{
+                    fliterInfo:'WELCOME',
+                    money:12,
                     myData:[],
                     t1:'',
                     now:-1
                 },
                 methods:{
                     get:function(ev){
+//                        判断为上下键时不向后台发起请求
                         if(ev.keyCode==38 || ev.keyCode==40)return;
 
                         if(ev.keyCode==13){
                             window.open('https://www.baidu.com/s?wd='+this.t1);
                             this.t1='';
                         }
+//                        ***********post方法***********
+                        /*methods:{
+                            get:function(){
+                                this.$http.post('post.php',{
+                                    a:1,
+                                    b:20
+                                },{
+//                                将所传参数转为json格式进行传输
+                                    emulateJSON:true
+                                }).then(function(res){
+                                    alert(res.data);
+                                },function(res){
+                                    alert(res.status);
+                                });
+                            }
+                        }*/
+//                        ***********post方法结束***********
 
+//                        this.$http.jsonp(url,{需要发送的数据},{配置}).then(function () {成功执行},function () {失败执行})
                         this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
                             wd:this.t1
                         },{
+//                            修改默认的jsonp名字callback为cb
                             jsonp:'cb'
                         }).then(function(res){
+                            // 获取成功
                             this.myData=res.data.s;
                         },function(){
-                            
+                            // 获取失败
                         });
                     },
                     changeDown:function(){
                         this.now++;
                         if(this.now==this.myData.length)this.now=-1;
+//                        键盘上下移动时改变input内的值与选中的值相同
                         this.t1=this.myData[this.now];
                     },
                     changeUp:function(){
@@ -57,8 +81,17 @@
     </script>
 </head>
 <body>
+    <!--过滤器，转为小写后首字母大写-->
+    <!--uppercase转为大写-->
+    <!--lowercase转为小写-->
+    <!--capitalize首字母大写-->
+    <!--currency精确两位小数，数字前加美元符号,也可以传参自定义其符号 如下-->
+    <p>{{money|currency '￥'}}</p>
+    <h3>{{fliterInfo |lowercase|capitalize}}</h3>
+    <!--——————————————————————-->
     <div id="box">
         <input type="text" v-model="t1" @keyup="get($event)" @keydown.down="changeDown()" @keydown.up.prevent="changeUp()">
+                                                                                <!--@keydown.up.prevent添加prevent阻止input框中光标向前移动的默认行为-->
         <ul>
         <!-- :class绑定class属性 -->
             <li v-for="value in myData" :class="{gray:$index==now}">
