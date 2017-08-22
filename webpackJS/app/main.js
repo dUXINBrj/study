@@ -1,4 +1,5 @@
 // ./当前目录 ../上级目录
+import './main.css';//使用require导入css文件
 const greeter=require('./Greeter.js');
 document.querySelector('#root').appendChild(greeter());
 // querySelector返回一个对象
