@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^7.1.2",
+    "calendar-plugin": "^1.0.1",
     "css-loader": "^0.28.5",
     "extract-text-webpack-plugin": "^3.0.0",
     "postcss-loader": "^2.0.6",
