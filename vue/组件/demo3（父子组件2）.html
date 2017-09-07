@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <script-component></script-component>
+        <tpl-commponent></tpl-commponent>
+    </div>
+    <!--注意这里script标签的type-->
+    <script type="text/x-template" id="myComponent">
+        <div>this is a component</div>
+    </script>
+    <!--使用template标签不用写type-->
+    <template id="tplComponent">
+        <div>this is templateComponent</div>
+    </template>
+</body>
+<script src="js/demo3.js"></script>
+</html>
