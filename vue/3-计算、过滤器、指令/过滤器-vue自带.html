@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>debounce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <!--vue自带的过滤器limitBy 限制循环结果显示几条 从哪儿开始显示-->
+            <!--第一个参数为显示几条 可以只写第一个参数 第二个参数为开始的位置 -->
+            <li v-for="value in arr | limitBy 2 3">{{value}}</li>
+        </ul>
+        <!--vue自带的过滤器debounce 延迟 需要配合事件一起使用-->
+        debounce:<input type="text" @keyup="show | debounce 2000">
+        <br>
+        filterBy:<input type="text" v-model="key">
+        <ul>
+            <!--vue自带的过滤器filterBy 根据关键字过滤-->
+            <li v-for="value in arr2 | filterBy key">{{value}}</li>
+        </ul>
+        orderBy:<input type="text" v-model="order">
+        <ul>
+            <!--vue自带的过滤器orderBy 排序按关键字排序 1是正序 -1是倒叙 其他则按关键字排序-->
+            <li v-for="value in arr2 | orderBy order">{{value}}</li>
+        </ul>
+    </div>
+    <script>
+        var vm=new Vue({
+            data:{
+                key:'',
+                order:'',
+                arr:[1,2,3,4,5],
+                arr2:['china','usa','canada','japan']
+            },
+            methods:{
+                show:function(){
+                    alert(1);
+                }
+            }
+        }).$mount('#box');
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

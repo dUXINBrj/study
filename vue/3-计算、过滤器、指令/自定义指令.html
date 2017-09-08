@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+//        Vue.directive(指令名称,function(参数){
+//            this.el	-> 原生DOM元素
+//        });
+//
+//        <div v-red="参数"></div>
+//
+//            指令名称: 	v-red  ->  red
+//
+//        * 注意: 必须以 v-开头
+        Vue.directive('red',function(color){
+            this.el.style.background=color;
+        });
+
+        window.onload=function(){
+            var vm=new Vue({
+                el:'#box'
+            });
+        };
+//vm.$watch(name,fnCb);  浅度
+//vm.$watch(name,fnCb,{deep:true});  深度监视
+//如果需要监听的数据是json格式的 json格式内的数据变化要用深度监视
+    </script>
+</head>
+<body>
+<div id="box">
+        <span v-red="'blue'">
+            asdfasd
+        </span>
+</div>
+
+</body>
+</html>

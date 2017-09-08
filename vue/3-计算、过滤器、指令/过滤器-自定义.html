@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义过滤器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+    <div id="box">
+        {{a | toDou}}
+        <br>
+        {{date | getDate}}
+        <br>
+    </div>
+    <script>
+//        自定义过滤器:  model ->过滤 -> view
+//        Vue.filter(name,function(input){
+//
+//        });
+        Vue.filter('toDou',function (value) { //可以接收多个参数
+                                            // eg: a | toDou 1 2
+            return value<10? '0'+value:value;
+        });
+
+        //自定义过滤器 时间转换
+        Vue.filter('getDate',function (value) {
+            var oDate=new Date(value);
+            return oDate.getFullYear()+'-'+(oDate.getMonth()+1)+'-'+oDate.getDay()+' '+oDate.getHours()+':'+oDate.getMinutes()+':'+oDate.getSeconds();
+        });
+
+        var vm=new Vue({
+            data:{
+                a:9,
+                date:Date.now(),
+                msg:''
+            },
+            methods:{
+
+            }
+        }).$mount('#box');
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

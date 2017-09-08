@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义过滤器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="msg | filterHtml">
+        <br>
+        <div v-html="msg">
+    </div>
+    <script>
+        //过滤html标记
+//        这样写并没有用 会报错 对于v-model这种双向绑定的数据 要改用双向过滤器
+//        Vue.filter('filterHtml',function (value) {
+//            return value.replace(/<[^<+]>/g,'');
+//        });
+        Vue.filter('filterHtml',{ //第二个参数改成了对象
+            read:function(input){ //model-view
+                alert(1);
+                return input.replace(/<[^<]+>/g,'');
+            },
+            write:function(val){ //view -> model
+                console.log(val);
+                return val;
+            }
+        });
+        var vm=new Vue({
+            data:{
+                msg:'<strong>welcome</strong>'
+            },
+            methods:{
+
+            }
+        }).$mount('#box');
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
