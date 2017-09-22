@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="box">
+    <aaa></aaa>
+</div>
+
+<template id="aaa">
+    <span>父组件-》 {{msg}}</span>
+    <bbb @child-msg="get"></bbb>
+    <!--父组件接收子组件数据的方法要写在子组件模板上-->
+</template>
+<template id="bbb">
+    <h3>子组件</h3>
+    <input type="button" value="发送子组件数据" @click="send">
+</template>
+</body>
+<script>
+    var vm=new Vue({
+        el:'#box',
+        components:{
+            'aaa':{
+                template:'#aaa',
+                data(){
+                    return{
+                        msg:'父组件data'
+                    }
+                },
+                methods:{
+                    get(msgChild){   //这里的get要接收子组件传来的参数
+                        this.msg=msgChild;
+                    }
+                },
+                components:{
+                    "bbb":{
+                        template:'#bbb',
+                        data(){
+                            return{
+                                msgChild:'子组件data'
+                            }
+                        },
+                        methods:{
+                            send(){
+                                this.$emit('child-msg',this.msgChild); //这里的child-msg就是父组件接收数据的方法名
+                            }
+                        }
+                    }
+                }
+            },
+        }
+    });
+</script>
+</html>
