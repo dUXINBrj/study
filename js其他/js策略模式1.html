@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>策略模式</title>
+</head>
+
+<body>
+    <label for="level">等级</label><input type="text" id="level">
+    <label for="salary">金额</label><input type="text" id="salary">
+    <button id="getit">计算</button>
+</body>
+<script>
+    const obj = {
+        "A" (salary) {
+            return salary * 4;
+        },
+        "B" (salary) {
+            return salary * 3;
+        },
+        "C" (salary) {
+            return salary * 2;
+        }
+    }
+    const calculateBouns = (level, salary) => obj[level](salary);
+    const btn = document.getElementById('getit');
+    const salary = document.getElementById('salary');
+    const level = document.getElementById('level');
+    btn.onclick = function() {
+        let _salary = salary.value;
+        let _level = level.value;
+        alert(calculateBouns(_level, _salary));
+    }
+</script>
+
+</html>
