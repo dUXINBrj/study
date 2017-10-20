@@ -8,24 +8,25 @@ import Reg from './components/Reg.vue'
 import Detail from './components/Detail.vue'
 
 
-export default{
-	'/home':{
-		component:Home,
-		subRoutes:{
-			'login':{
-				component:Login
-			},
-			'reg':{
-				component:Reg
-			}
-		}
-	},
-	'/news':{
-		component:News,
-		subRoutes:{
-			'detail/:id':{
-				component:Detail
-			}
-		}
-	}
+export default {
+    '/home': {
+        component: Home,
+        subRoutes: {
+            '/login': {
+                component: Login
+            },
+            '/reg': {
+                component: Reg
+            }
+        }
+    },
+    '/news': {
+        component: News,
+        subRoutes: {
+            'detail/:id': {
+                component: Detail
+            }
+        }
+    }
+
 }
