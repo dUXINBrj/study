@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件委托</title>
+</head>
+<body>
+<ul id="box">
+    <li class="item">item1</li>
+    <li class="item">item2</li>
+    <li class="item">item3</li>
+</ul>
+<input type="text" width="100px" class="value"><button class="add">add</button>
+</body>
+<script>
+(function () {
+     const box=document.getElementById('box');
+     box.addEventListener('click',function (event) {
+         let target=event;
+         if(target.target.className=='item'){
+             alert(target.target.textContent);
+         }
+     });
+    const btn=document.getElementsByClassName('add')[0];
+    btn.onclick=function () {
+        let value=document.getElementsByClassName('value')[0].value;
+        if(!value){
+            return false
+        }
+        let node=document.createElement('li');
+        node.className='item';
+        let textNode=document.createTextNode(value);
+        node.appendChild(textNode);
+        box.appendChild(node);
+    }
+})()
+</script>
+</html>
