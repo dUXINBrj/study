@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue2.0</title>
+	<script type="text/javascript" src="lib/vue.js"></script>
+</head>
+<body>
+<template id="aaa">
+	<div>
+		<h3>aaa组件</h3>
+	</div>
+</template>
+<template id="bbb">
+	<div>
+		<h3>bbb局部组件</h3>
+	</div>
+</template>
+<div id="box">
+	{{msg}}
+	<my-aaa></my-aaa>
+	<my-bbb></my-bbb>
+</div>
+</body>
+<script type="text/javascript">
+	//抛弃Vue.extend()
+	var Home={
+		template:'#aaa'
+	};//类似Vue.extend()
+	//全局注册组件
+	Vue.component('my-aaa',Home);
+	//局部组件
+	var News={
+		template:'#bbb'
+	};
+	new Vue({
+		el:'#box',
+		components:{
+			'my-bbb':News
+		},
+		data:{
+			msg:'vue2.0'
+		}
+	})
+</script>
+</html>

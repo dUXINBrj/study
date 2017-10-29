@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue2.0</title>
+	<script type="text/javascript" src="lib/vue.js"></script>
+</head>
+<body>
+<div id="box">
+	<input type="button" value="添加" @click='add'>
+	<ul>
+		<!-- 不定义index的话则在循环中无法使用index
+		在1.0 index作为隐式变量会传到循环中 
+		且在（val,index）中第一个必须是value值 第二个为下标值 与foreacg原生写法相同-->
+		<li v-for="(val,index) in list">
+			{{index}} {{val}}
+		</li>
+	</ul>
+</div>
+</body>
+<script type="text/javascript">
+new Vue({
+	el:'#box',
+	data:{
+		list:['width','height','color']
+	},
+	methods:{
+		add(){
+			this.list.push('background');
+		}
+	}
+})
+</script>
+</html>

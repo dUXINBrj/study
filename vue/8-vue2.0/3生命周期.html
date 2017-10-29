@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue2.0</title>
+	<script type="text/javascript" src="lib/vue.js"></script>
+</head>
+<body>
+<div id="box">
+	{{msg}}
+	<button @click='updata'>更新</button>
+	<button @click='destroy'>销毁</button>
+</div>
+</body>
+<script type="text/javascript">
+	new Vue({
+		el:'#box',
+		data:{
+			msg:'vue2.0'
+		},
+		methods:{
+			updata(){
+				this.msg='data updata'
+			},
+			destroy(){
+				this.$destroy();
+			}
+		},
+		beforeCreate(){
+			console.log('组件实例刚刚被创建,并没有其相关的属性');
+		},
+		created(){
+			console.log('实例已经被创建，属性被绑定');
+		},
+		beforeMount(){
+			console.log('模版编译之前');
+		},
+		mounted(){
+			console.log('模版编译完成，代替之前的ready');
+		},
+		beforeUpdate(){
+			console.log('组件更新之前');
+		},
+		updated(){
+			console.log('组件更新完成');
+		},
+		beforeDestroy(){
+			console.log('组件销毁之前');
+		},
+		destroyed(){
+			console.log('组件销毁后');
+		}
+
+	})
+</script>
+</html>

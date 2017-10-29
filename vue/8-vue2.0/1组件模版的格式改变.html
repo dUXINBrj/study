@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue2.0</title>
+	<script type="text/javascript" src="lib/vue.js"></script>
+</head>
+<body>
+<div id="box">
+	{{msg}}
+	<my-aaa></my-aaa>
+</div>
+</body>
+<script type="text/javascript">
+	// 不在支持片段式的代码片段 如下的形式会报错
+	// <template>
+	// 	<h3>2</h3>
+	// 	<h3>1</h3>
+	// </template>
+	// 必须由一个根元素将组件元素包裹在一起 如下 
+	// <template><div>
+	// 	<h3>2</h3>
+	// 	<h3>1</h3>
+	// </div></template>
+	Vue.component('my-aaa',{
+		template:'<div><h3>我是组件</h3><h4>222</h4></div>'
+	});
+	new Vue({
+		el:'#box',
+		data:{
+			msg:'vue2.0'
+		}
+	})
+</script>
+</html>
