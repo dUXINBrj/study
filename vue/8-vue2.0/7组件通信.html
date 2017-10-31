@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0</title>
+    <script type="text/javascript" src="lib/vue.js"></script>
+</head>
+
+<body>
+    <template id="child">
+        <div>
+            <h3>子组件</h3>
+            <button @click="change">change</button>
+            <strong>{{msg.a}}</strong>
+        </div>
+    </template>
+    <div id="box">
+        <h1>父组件数据：{{giveData.a}}</h1>
+        <child-com :msg="giveData"></child-com>
+    </div>
+</body>
+<script type=" text/javascript ">
+    //2.0中不能通过sync更改父组件的信息
+
+    //2.0中子组件更改父组件的数据的方法
+    // a）父组件给子组件传对象 子组件更改其对象里面的值 父组件会被同步更改 不会浪费性能
+    new Vue({
+        el: '#box',
+        data: {
+            giveData: {
+                a: '父级数据'
+            }
+        },
+        components: {
+            'child-com': {
+                props: ["msg"],
+                template: '#child',
+                methods: {
+                    change() {
+                        this.msg.a = '被更改了'
+                    }
+                }
+            }
+        },
+        methods: {}
+    })
+</script>
+
+</html>

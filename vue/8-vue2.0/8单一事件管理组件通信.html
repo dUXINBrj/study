@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0</title>
+    <script type="text/javascript" src="lib/vue.js"></script>
+</head>
+
+<body>
+    <template id="child">
+        <div>
+            <h3>子组件</h3>
+            <button @click="change">change</button>
+            <strong>{{b}}</strong>
+        </div>
+    </template>
+    <div id="box">
+        <com-a></com-a>
+        <com-b></com-b>
+        <com-c></com-c>
+    </div>
+</body>
+<script type=" text/javascript ">
+    //准备一个空的实例对象 用于之后发送和接收数据
+    let Event=new Vue();
+    let A = {
+        template: `
+                <div>
+                <span>A组件</span>->{{a}}
+                <input type="button" value="A数据给C" @click="send">
+                </div>
+            `,
+        data(){
+            return{
+                a:'我是A的数据'
+            }
+        },
+        methods:{
+            send(){
+                Event.$emit('a-msg',this.a)
+            }
+        }
+    };
+    let B = {
+        template: `
+                <div>
+                <span>B组件</span>->{{b}}
+                <input type="button" value="B数据给C" @click="send">
+                </div>
+            `,
+        data(){
+            return{
+                b:'我是B的数据'
+            }
+        },
+        methods:{
+            send(){
+                Event.$emit('b-msg',this.b);
+            }
+        }
+    };
+    let C = {
+        template: `<div>
+                    <h3>C组件</h3>
+                    <span>接受A的数据：{{a}}</span><br>
+                    <span>接受B的数据：{{b}}</span>
+                    </div>`,
+        data(){
+            return{
+                a:'',
+                b:''
+            }
+        },
+        mounted(){
+            //接收A的数据
+            Event.$on('a-msg',function (a) {
+                this.a=a;
+            }.bind(this));//bind更改this的指向
+            //接收B的数据
+            Event.$on('b-msg',function (b) {
+                this.b=b;
+            }.bind(this))
+        }
+    };
+    new Vue({
+        el: '#box',
+        data: {},
+        components: {
+            'com-a': A,
+            'com-b': B,
+            'com-c': C
+        },
+        methods: {}
+    })
+</script>
+
+</html>
