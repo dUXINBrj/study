@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 响应式的列重置</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="jquery-1.11.3.min.js"></script>
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+        
+        #dashContent {
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media (max-width:600px) {
+            .dashBox {
+                width: 90%;
+            }
+        }
+        
+        @media (min-width:992px) {
+            .dashBox {
+                width: 45%;
+            }
+        }
+        
+        .clearfix {
+            clear: both;
+        }
+        
+        .dashBox {
+            margin-left: 2%;
+            display: inline-block;
+            background: #fff;
+            min-height: 250px;
+            margin-bottom: 20px;
+            -webkit-transition: all .2s linear;
+            transition: all .2s linear;
+            position: relative;
+        }
+        
+        .dashBox:hover {
+            transform: translate3d(0, -2px, 0);
+            -webkit-transform: translate3d(0, -2px, 0);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        #dashTable {
+            border-collapse: collapse;
+            width: 95%;
+            margin: 10px auto;
+        }
+        
+        #dashTable tr {
+            cursor: pointer;
+            border: 1px solid #f1f1f1;
+        }
+        
+        #dashTable tr:nth-child(2n-1) {
+            background: #f1f1f1;
+        }
+        
+        #dashTable tr:hover {
+            background: #dcdcdc;
+        }
+        
+        .dashTdLink {
+            color: rgb(26, 123, 250);
+            text-decoration: underline;
+        }
+        
+        #dashTable td {
+            overflow: hidden;
+            max-width: 100px;
+        }
+        
+        .dashChousedeviceBox {
+            width: 90%;
+            margin: 10px auto;
+            position: absolute;
+            overflow: hidden;
+            height: 20px;
+            bottom: 0;
+        }
+        
+        .dasOpenSelBox,
+        .dashChousedeviceSelBox {
+            width: 100%;
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            overflow: hidden;
+        }
+        
+        .dashChousedeviceLabel {
+            float: right;
+            width: 20px;
+            cursor: pointer;
+        }
+        
+        .dashChousedeviceLabel img {
+            vertical-align: -20%;
+            height: 17px;
+        }
+        
+        .dashBox #dashChousedevice {
+            width: 50%;
+            float: right;
+            height: 20px;
+        }
+        
+        .openDashSel {
+            width: 60px;
+            font-size: 20px !important;
+            line-height: 8px;
+            float: right;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+        
+        .animated.bounceIn,
+        .animated.bounceOut {
+            animation-duration: .75s;
+        }
+        
+        @keyframes bounceOutRight {
+            20% {
+                opacity: 1;
+                transform: translate3d(-20px, 0, 0);
+            }
+            to {
+                opacity: 0;
+                transform: translate3d(2000px, 0, 0);
+            }
+        }
+        
+        .bounceOutRight {
+            animation-name: bounceOutRight;
+        }
+        
+        @keyframes bounceInRight {
+            from,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            }
+            from {
+                opacity: 0;
+                transform: translate3d(3000px, 0, 0);
+            }
+            60% {
+                opacity: 1;
+                transform: translate3d(-25px, 0, 0);
+            }
+            75% {
+                transform: translate3d(10px, 0, 0);
+            }
+            90% {
+                transform: translate3d(-5px, 0, 0);
+            }
+            to {
+                transform: none;
+            }
+        }
+        
+        .bounceInRight {
+            animation-name: bounceInRight;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="dashContent">
+        <div class="col-xs-12 col-sm-12 col-md-5 dashBox">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="col-md-2 hidden-sm"></div>
+        <div class="col-xs-12 col-sm-12 col-md-5 dashBox">
+            <table id="dashTable">
+                <tbody id="dashTody">
+                    <tr>
+                        <td>火灾报警</td>
+                        <td>双子座A栋火灾报警火灾报警</td>
+                        <td>17F</td>
+                        <td>火警</td>
+                        <td class="dashTdLink">处理</td>
+                    </tr>
+                    <tr>
+                        <td>火灾报警</td>
+                        <td>双子座A栋</td>
+                        <td>17F</td>
+                        <td>火警</td>
+                        <td class="dashTdLink">处理</td>
+                    </tr>
+                    <tr>
+                        <td>火灾报警</td>
+                        <td>双子座A栋</td>
+                        <td>17F</td>
+                        <td>火警</td>
+                        <td class="dashTdLink">处理</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="col-xs-12 col-sm-12 col-md-5 dashBox">
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-5 dashBox">
+            <div class="dashChousedeviceBox">
+                <div class="dashChousedeviceSelBox animated bounceOutRight">
+                    <label for="dashChousedevice" class="dashChousedeviceLabel"> <img src="hide-right.png"> </label>
+                    <select id="dashChousedevice">
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+                <div class="dasOpenSelBox animated bounceInRight">
+                    <span class="openDashSel">。。。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $('.dashChousedeviceLabel').click(function() {
+        $(".dashChousedeviceSelBox").removeClass('bounceInRight');
+        $(".dashChousedeviceSelBox").addClass('bounceOutRight');
+
+        $(".dasOpenSelBox").removeClass('bounceOutRight');
+        $(".dasOpenSelBox").addClass('bounceInRight');
+    });
+    $('.openDashSel').click(function() {
+        $(".dasOpenSelBox").removeClass('bounceInRight');
+        $(".dasOpenSelBox").addClass('bounceOutRight');
+
+        $(".dashChousedeviceSelBox").removeClass('bounceOutRight');
+        $(".dashChousedeviceSelBox").addClass('bounceInRight');
+    });
+</script>
+
+</html>

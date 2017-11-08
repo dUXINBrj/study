@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="highcharts.js"></script>
+    <script type="text/javascript" src="exporting.js"></script>
+</head>
+
+<body>
+    <div id="container" min-width:400px;height:400px></div>
+</body>
+<script>
+    $(function() {
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            colors: [
+                '#1aadce',
+                '#492970',
+                '#f28f43',
+                '#77a1e5',
+                '#c42525',
+                '#a6c96a'
+            ],
+            title: {
+                text: '2014 某网站上各个浏览器的访问量占比'
+            },
+            tooltip: {
+                headerFormat: '{series.name}<br>',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true,
+                    states: {
+                        hover: {
+                            enabled: false
+                        }
+                    },
+                    slicedOffset: 20, // 突出间距
+                    point: { // 每个扇区是数据点对象，所以事件应该写在 point 下面
+                        events: {
+                            // 鼠标滑过是，突出当前扇区
+                            mouseOver: function() {
+                                this.slice();
+                            },
+                            // 鼠标移出时，收回突出显示
+                            mouseOut: function() {
+                                this.slice();
+                            },
+                            // 默认是点击突出，这里屏蔽掉
+                            click: function() {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            },
+            legend: { //示例位置 默认在下方
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'middle',
+                labelFormatter: function() { //图例 百分比
+                    return this.name + '(' + this.percentage + '%)';
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '浏览器访问量占比',
+                data: [
+                    ['Firefox', 45.0],
+                    ['IE', 26.8],
+                    ['Chrome', 12.8],
+                    ['Safari', 8.5],
+                    ['Opera', 6.2],
+                    ['其他', 0.7]
+                ]
+            }],
+            exporting: {
+                enabled: false
+            }, //隐藏导出图片  
+            credits: {
+                enabled: false
+            } //隐藏highcharts的站点标志  
+        });
+    });
+</script>
+
+</html>
