@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0 动画过渡</title>
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <style>
+        p{
+            width: 300px;
+            height: 300px;
+            background: red;
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition: 1s all ease;
+        }
+        .fade-enter-active{
+            opacity: 1;
+            width: 300px;
+            height: 300px;
+        }
+        /*初始状态 enter 和 active的顺序改变会导致动画失效 原因未知*/
+        .fade-enter{
+            opacity: 0;
+            width: 100px;
+            height: 100px;
+        }
+        /*离开过程中的状态*/
+        .fade-leave-active{
+            opacity: 0;
+            width: 100px;
+            height: 100px;
+        }
+        /*离开时的状态*/
+        .fade-leave{
+            opacity: 0;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <button @click="show=!show">show</button>
+    <!--过渡及动画需要放到transition这一组件中-->
+    <transition name="fade" @before-enter="beforeEnter" @enter="enter" @after-enter="afterLeave">
+        <!--after-enter before-leave after-leave -->
+        <p v-show="show"></p>
+    </transition>
+</div>
+</body>
+<script>
+new Vue({
+    el:'#box',
+    data:{
+        show:false
+    },
+    methods:{
+        beforeEnter(){
+            console.log('enter之前');
+        },
+        enter(el){
+            console.log(el);
+            console.log('enter');
+        },
+        afterLeave(el){
+            el.style.background='blue';
+        }
+    }
+})
+</script>
+</html>

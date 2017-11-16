@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0 动画过渡</title>
+    <link rel="stylesheet" href="../lib/animate.css">
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <style>
+        p{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button @click="show=!show">show</button>
+        <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+            <p v-show="show"></p>
+        </transition>
+        <br>
+        <button @click="showGroup=!showGroup">showGroup</button>
+        <!--多个元素 用transition-group 并且需要为子元素添加唯一属性key-->
+        <transition-group enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+            <p v-show="showGroup" :key="1"></p>
+            <p v-show="showGroup" :key="2"></p>
+        </transition-group>
+    </div>
+</body>
+<script>
+new Vue({
+    el:'#box',
+    data:{
+        show:false,
+        showGroup:false
+    }
+})
+</script>
+</html>

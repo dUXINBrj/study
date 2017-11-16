@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0 动画过渡</title>
+    <link rel="stylesheet" href="../lib/animate.css">
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <style>
+        p{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="show">
+        <!--多个元素 用transition-group 并且需要为子元素添加唯一属性key-->
+        <transition-group enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+            <p v-show="show" v-for="(val,index) in lists" :key=index>{{val}}</p>
+        </transition-group>
+    </div>
+</body>
+<script>
+new Vue({
+    el:'#box',
+    data:{
+        show:'',
+        showGroup:false,
+        list:['apple','orange','banana','pear']
+    },
+    //计算 在data内的数据发生变化时触发 返回的结果可以当data内的数据用
+    computed:{
+        lists:function () {
+            let arr=[];
+            let _this=this;
+            //也可以加bind(this)
+//            this.list.forEach(function () {
+//
+//            }.bind(this));
+            this.list.forEach(function (val,index) {
+                if(val.indexOf(_this.show)!=-1){
+                    arr.push(val);
+                }
+            });
+            return arr;
+        }
+    }
+})
+</script>
+</html>
