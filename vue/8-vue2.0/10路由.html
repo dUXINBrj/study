@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0 动画过渡</title>
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <script type="text/javascript" src="lib/vue-router.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <div>
+        <router-link to="/home">主页</router-link>
+        <router-link to="/news">新闻</router-link>
+    </div>
+    <div>
+        <router-view></router-view>
+    </div>
+</div>
+</body>
+<script>
+    let Home={
+        template:'<h2>首页</h2>'
+    };
+    let News={
+        template:'<h2>新闻</h2>'
+    };
+    //配置路由
+    const routes=[
+        {path:'*',redirect:'/home'},
+        {path:'/home',component:Home},
+        {path:'/news',component:News}
+    ];
+    //生成路由
+    const router=new VueRouter({
+        routes
+//        routes:routes es6的简洁写法 和上面相同
+    });
+    //挂载路由
+    new Vue({
+        el:'#box',
+        router,
+        data:{
+
+        },
+        methods:{
+
+        }
+    })
+</script>
+</html>
