@@ -13,7 +13,7 @@
 <div id="box">
     <div>
         <router-link to="/home">主页</router-link>
-        <router-link to="/news">新闻</router-link>
+        <router-link to="/user">用户</router-link>
     </div>
     <div>
         <router-view></router-view>
@@ -24,14 +24,32 @@
     let Home={
         template:'<h2>首页</h2>'
     };
-    let News={
-        template:'<h2>新闻</h2>'
+    let User={
+        template:'<div>' +
+        '<h2>用户</h2>' +
+        '<ul>' +
+        '<li><router-link to="/username">用户姓名1</router-link></li>' +
+        '</ul>' +
+        '<div><router-view></router-view></div>' +
+        '</div>'
+    };
+    let Username={
+        template:`<h3>用户姓名</h3>`
     };
     //配置路由
     const routes=[
         {path:'*',redirect:'/home'},//重定向
         {path:'/home',component:Home},
-        {path:'/news',component:News}
+        {
+            path:'/user',
+            component:User,
+            children:[
+                {
+                    path:'/username',
+                    component:Username
+                }
+            ]
+        }
     ];
     //生成路由
     const router=new VueRouter({

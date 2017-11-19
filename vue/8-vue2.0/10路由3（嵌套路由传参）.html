@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue2.0</title>
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <script type="text/javascript" src="lib/vue-router.js"></script>
+    <link rel="stylesheet" href="../lib/animate.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <button @click="push">添加路由</button>
+    <button @click="replace">替换路由</button>
+    <div>
+        <router-link to="/home">主页</router-link>
+        <router-link to="/user">用户</router-link>
+    </div>
+    <div>
+        <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+            <router-view></router-view>
+        </transition>
+    </div>
+</div>
+</body>
+<script>
+    let Home={
+        template:'<h2>首页</h2>'
+    };
+    let User={
+        template:'<div>' +
+        '<h2>用户</h2>' +
+        '<ul>' +
+        '<li><router-link to="/user/yello/age/10">yello</router-link></li>' +
+        '<li><router-link to="/user/blue/age/20">blue</router-link></li>' +
+        '<li><router-link to="/user/red/age/30">red</router-link></li>' +
+        '</ul>' +
+        '<div><router-view></router-view></div>' +
+        '</div>'
+    };
+    let Username={
+        template:`<h3>{{$route.params}}</h3>`
+    };
+    //配置路由
+    const routes=[
+        {path:'*',redirect:'/home'},//重定向
+        {path:'/home',component:Home},
+        {
+            path:'/user',
+            component:User,
+            children:[
+                {
+                    path:':username/age/:ageNum', //  :user :ageNum 在大多数情况下为从后台循环出路由后所带的参数
+                    component:Username
+                }
+            ]
+        }
+    ];
+    //生成路由
+    const router=new VueRouter({
+        routes
+//        routes:routes es6的简洁写法 和上面相同
+    });
+    //挂载路由
+    new Vue({
+        el:'#box',
+        router,
+        data:{
+
+        },
+        methods:{
+            push(){
+                router.push({
+                    path:'/home'   //push就相当于向历史记录中添加一条记录
+                });
+            },
+            replace(){
+                router.replace({
+                    path:'/user'   //replace相当于替换当前页面的历史记录 浏览器的返回没用
+                });
+            }
+            // push 及 replace表现相同 都类似与页面跳转 但是不是页面重新加载
+        }
+    })
+</script>
+</html>
