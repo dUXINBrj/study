@@ -19,6 +19,8 @@
 </template>
 
 <script>
+  //todo
+  //增加animated动画
     export default {
 		data(){
 			return{
@@ -29,9 +31,9 @@
         methods:{
 			login(){
 				if(this.loginName=='' || this.loginPwd==''){
-					toastr.error("用户名或密码不能为空！");  
+					toastr.error("用户名或密码不能为空！");
 				}else{
-					toastr.success("登陆成功!"); 
+					toastr.success("登陆成功!");
 					setTimeout(function(){
 						this.$router.replace({path:'/index'});
 					}.bind(this),1000)
@@ -148,7 +150,7 @@ button:active {
     -webkit-box-shadow:
         0 15px 30px 0 rgba(255,255,255,.15) inset,
         0 2px 7px 0 rgba(0,0,0,.2);
-    box-shadow:        
+    box-shadow:
         0 5px 8px 0 rgba(0,0,0,.1) inset,
         0 1px 4px 0 rgba(0,0,0,.1);
 
