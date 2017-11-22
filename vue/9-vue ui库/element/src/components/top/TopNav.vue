@@ -7,9 +7,10 @@
   @select="handleSelect"
   background-color="#545c64"
   text-color="#fff"
+  router='true'
   active-text-color="#ffd04b">
-  <el-menu-item index="/index/dashboard"><router-link to="/index/dashboard">dashboard</router-link></el-menu-item>
-  <el-menu-item index="/index/level1map"><router-link to="/index/level1map">地图</router-link></el-menu-item>
+  <el-menu-item index="/index/dashboard">dashboard</el-menu-item>
+  <el-menu-item index="/index/level1map">地图</el-menu-item>
 </el-menu>
 	</div>
 </template>

@@ -2,13 +2,17 @@
     <div id="dashboard">
         <el-container>
             <el-aside width="250px">
-              <vue-tree :tree-data="treeData"
-                            :options="options"
-                            @add-a-child="addAChild"
-                            @item-click="itemClick"
-                            @item-edit="itemEdit"
-                            @item-delete="itemDelete">
-                  </vue-tree>
+              <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
+              <el-tree
+                :data="data4"
+                :props="defaultProps"
+                node-key="id"
+                default-expand-all
+                :expand-on-click-node="true"
+                :filter-node-method="filterNode"
+                ref="tree2"
+                :render-content="renderContent">
+              </el-tree>
             </el-aside>
             <el-main>Main</el-main>
         </el-container>
@@ -16,131 +20,91 @@
 </template>
 
 <script>
-//todo
-//element 自定义节点内容 render-content
+import RedCircle from '../circle/RedCircle.vue';
+import OrangeCircle from '../circle/OrangeCircle.vue';
+import YellowCircle from '../circle/YellowCircle.vue';
+import GreyCircle from '../circle/GreyCircle.vue';
 export default {
   name: "dashboard",
-      data() {
-        return {
-          treeData:[{
-                name: '根目录[1]<span>1</span>',
-                id: 1,
-                children: [
-                    {
-                        name: '一级节点[4]<span>1</span>', id: 4,
-                        children: [
-                            {
-                                name: '二级节点[5]<span>1</span>', id: 5,
-                                children: [
-                                    { name: '三级节点[6]<span>1</span>', id: 6},
-                                    { name: '三级节点[8]', id: 8},
-                                    { name: '三级节点[30]', id: 30},
-                                    {
-                                        name: '三级节点[31]',
-                                        id: 31,
-                                        children: [
-                                            { name: '四级节点[36]', id: 36},
-                                            { name: '四级节点[38]', id: 38},
-                                            { name: '四级节点[39]', id: 39},
-                                            { name: '四级节点[48]', id: 48},
-                                        ]
-                                    }
-                                ]
-                            },
-                            { name: '二级节点[9]', id: 9},
-                            { name: '二级节点[10]', id: 10},
-                            {
-                                name: '二级节点[11]', id: 11,
-                                children: [
-                                    { name: '三级节点[12]', id: 12},
-                                    { name: '三级节点[13]', id: 13},
-                                    {
-                                        name: '三级节点[14]', id: 14,
-                                        children: [
-                                            { name: '四级节点[15]', id: 15},
-                                            { name: '四级节点[16]', id: 16},
-                                            { name: '四级节点[17]', id: 17},
-                                            { name: '四级节点[18]', id: 18},
-                                            {
-                                                name: '四级节点[19]', id: 19,
-                                                children: [
-                                                    { name: '五级节点[20]', id: 20},
-                                                    { name: '五级节点[21]', id: 21},
-                                                    { name: '五级节点[22]', id: 22},
-                                                    { name: '五级节点[23]', id: 23},
-                                                    { name: '五级节点[24]', id: 24},
-                                                ]
-                                            },
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    { name: '一级节点[2]', id: 2},
-                    {
-                        name: '一级节点[59]', id: 59,
-                        children: [
-                            { name: '二级节点[60]', id: 60},
-                            { name: '二级节点[61]', id: 61},
-                            { name: '二级节点[62]', id: 62},
-                            { name: '二级节点[63]', id: 63},
-                            { name: '二级节点[64]', id: 64},
-                        ]
-                    },
-                    { name: '一级节点[3]', id: 3},
-                ]
-            },
-            {
-                name: '根目录[99]',
-                id: 99,
-                children: [
-                    { name: '二级节点[70]', id: 70},
-                    { name: '二级节点[71]', id: 71},
-                    { name: '二级节点[72]', id: 72},
-                    { name: '二级节点[73]', id: 73},
-                    {
-                        name: '二级节点[74]',
-                        id: 74,
-                        children: [
-                            { name: '三级节点[82]', id: 82},
-                            { name: '三级节点[83]', id: 83}
-                            ]
-                    },
-                ]
-            }],
-            options: {
-                itemName: 'name',
-                checkbox: false,
-                checkedIds: [8,10,12],
-                checkedOpen: true,
-                folderBold: true,
-                showAdd: false,
-                showEdit: false,
-                showDelete: false,
-                addClass: 'fa fa-plus-square-o',
-                editClass: 'fa fa-edit',
-                deleteClass: 'fa fa-trash-o',
-                openClass: 'fa fa-angle-right',
-                closeClass: 'fa fa-angle-down'
-            },
-            message: []
-        }
-    },
-    methods:{
-        addAChild(id) {
-            this.message.push('点击了添加子节点按钮，父节点ID[' + id + ']')
-        },
-        itemClick(id) {
-            this.message.push('点击了节点，节点ID[' + id + ']')
-        },
-        itemEdit(id) {
-            this.message.push('点击了编辑按钮，节点ID[' + id + ']')
-        },
-        itemDelete(id) {
-            this.message.push('点击了删除按钮，节点ID[' + id + ']')
-        }
+  mounted(){
+    console.log(11);
+  },
+  data() {
+    return {
+      filterText: '',
+      data4: [{
+        id: 1,
+        label: '一级 1',
+        children: [{
+          id: 4,
+          label: '二级 1-1',
+          children: [{
+            id: 9,
+            label: '三级 1-1-1'
+          }, {
+            id: 10,
+            label: '三级 1-1-2'
+          }]
+        }]
+      }, {
+        id: 2,
+        label: '一级 2',
+        children: [{
+          id: 5,
+          fire:5,
+          warn:3,
+          error:4,
+          offline:1,
+          label: '二级 2-1'
+        }, {
+          id: 6,
+          fire:'',
+          label: '二级 2-2'
+        }]
+      }, {
+        id: 3,
+        label: '一级 3',
+        children: [{
+          id: 7,
+          label: '二级 3-1'
+        }, {
+          id: 8,
+          label: '二级 3-2'
+        }]
+      }],
+      defaultProps: {
+        children: 'children',
+        label: 'label'
+      }
     }
+  },
+  components:{RedCircle,OrangeCircle,YellowCircle,GreyCircle},
+  methods:{
+    renderContent(h, { node, data, store }) {
+        return(
+          <span style="flex: 1; display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding-right: 8px;">
+        <span>
+        <span>{node.label}</span>
+      </span>
+      <span>
+      <RedCircle v-show={data.fire} caseNum={data.fire}></RedCircle>
+      <OrangeCircle v-show={data.warn} caseNum={data.fire}></OrangeCircle>
+      <YellowCircle v-show={data.error} caseNum={data.fire}></YellowCircle>
+      <GreyCircle v-show={data.offline} caseNum={data.fire}></GreyCircle>
+      </span>
+      </span>
+        )
+    },
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.label.indexOf(value) !== -1;
+    }
+  },
+    watch: {
+    filterText(val) {
+      this.$refs.tree2.filter(val);
+    }
+  },
 };
 </script>
 
