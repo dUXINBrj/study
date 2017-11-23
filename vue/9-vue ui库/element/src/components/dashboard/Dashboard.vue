@@ -7,10 +7,11 @@
                 :data="data4"
                 :props="defaultProps"
                 node-key="id"
-                default-expand-all
+                :default-expand-all='false'
                 :expand-on-click-node="true"
                 :filter-node-method="filterNode"
                 ref="tree2"
+                :highlight-current="true"
                 :render-content="renderContent">
               </el-tree>
             </el-aside>
@@ -111,5 +112,15 @@ export default {
 <style scoped>
 #dashboard {
   height: 100%;
+}
+.el-container{
+  height: 100%;
+}
+.el-aside {
+    background-color: #324157;
+    color: #333;
+}
+.el-main{
+  background: #00ffff;
 }
 </style>

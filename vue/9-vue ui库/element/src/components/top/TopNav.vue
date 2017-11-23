@@ -5,9 +5,9 @@
   class="el-menu-demo"
   mode="horizontal"
   @select="handleSelect"
-  background-color="#545c64"
+  background-color="#242f42"
   text-color="#fff"
-  router='true'
+  :router= true
   active-text-color="#ffd04b">
   <el-menu-item index="/index/dashboard">dashboard</el-menu-item>
   <el-menu-item index="/index/level1map">地图</el-menu-item>
@@ -27,7 +27,7 @@
       },
       methods: {
         handleSelect(key, keyPath) {
-          console.log(key, keyPath);
+          // console.log(key, keyPath);
         }
       }
   }

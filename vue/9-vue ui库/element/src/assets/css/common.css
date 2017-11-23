@@ -14,3 +14,21 @@ body {
 a {
     text-decoration: none;
 }
+
+.el-tree {
+    background: #324157;
+    color: #bfcbd9;
+}
+
+.el-tree-node:focus>.el-tree-node__content,
+.el-tree-node__content:hover {
+    background: #48576a;
+}
+
+.el-tree-node>.el-tree-node__children {
+    background: #1f2d3d;
+}
+
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+    background: #48576a;
+}
