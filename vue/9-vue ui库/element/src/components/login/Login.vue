@@ -3,7 +3,7 @@
 			<div class="content">
 				<div id="large-header" class="large-header">
 					<canvas id="demo-canvas"></canvas>
-					<div class="main-title">
+					<div class="main-title animated bounceInDown">
 						<h1>Login</h1>
 						<div>
 							<input v-model="loginName" type="text" name="username" class="username" placeholder="Username" autocomplete="off"/>
@@ -33,6 +33,7 @@
 				if(this.loginName=='' || this.loginPwd==''){
 					toastr.error("用户名或密码不能为空！");
 				}else{
+                    localStorage.setItem('ms_username',this.loginName);
 					toastr.success("登陆成功!");
 					setTimeout(function(){
 						this.$router.replace({path:'/index'});
@@ -155,5 +156,8 @@ button:active {
         0 1px 4px 0 rgba(0,0,0,.1);
 
     border: 0px solid #ef4300;
+}
+.demo-1,.content,.large-header{
+    height: 100%;
 }
 </style>

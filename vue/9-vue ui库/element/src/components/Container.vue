@@ -5,18 +5,18 @@
         <el-row>
           <el-col :span="2">LOGO</el-col>
           <el-col :span="20">
-            <TopNav></TopNav>            
+            <TopNav></TopNav>
           </el-col>
           <el-col :span="2">
             <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link">
-                您好 {{username}}<img class="header" src="../assets/img/img.jpg">
+                您好 {{username}}<img class="header" src="../assets/img/img.gif">
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="loginout">退出</el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>    
-          </el-col>          
+            </el-dropdown>
+          </el-col>
         </el-row>
         </el-header>
 		  <el-container>
@@ -76,13 +76,13 @@ import TopNav from './top/TopNav.vue'
     text-align: center;
     line-height: 60px;
   }
-  
+
   .el-main {
     background-color: #E9EEF3;
     color: #333;
     padding: 0
   }
-  
+
   body > .el-container {
     margin-bottom: 40px;
   }
@@ -93,7 +93,7 @@ import TopNav from './top/TopNav.vue'
   .el-container:nth-child(6) .el-aside {
     line-height: 260px;
   }
-  
+
   .el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
