@@ -1,5 +1,5 @@
 <template>
-    <div id="dashboard">
+    <div id="dashboard" v-loading='loading'>
         <el-container>
             <el-aside width="250px">
               <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
@@ -27,11 +27,14 @@ import YellowCircle from '../circle/YellowCircle.vue';
 import GreyCircle from '../circle/GreyCircle.vue';
 export default {
   name: "dashboard",
-  mounted(){
-    console.log(11);
+  created(){
+    setTimeout(function(){
+    this.loading=false;      
+    }.bind(this),1000)
   },
   data() {
     return {
+      loading:true,
       filterText: '',
       data4: [{
         id: 1,
