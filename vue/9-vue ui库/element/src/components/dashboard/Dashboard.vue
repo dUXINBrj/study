@@ -4,6 +4,7 @@
             <el-aside width="250px">
               <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
               <el-tree
+                @node-click="getCurrentNode"
                 :data="data4"
                 :props="defaultProps"
                 node-key="id"
@@ -15,7 +16,22 @@
                 :render-content="renderContent">
               </el-tree>
             </el-aside>
-            <el-main>Main</el-main>
+            <el-main>
+              <el-row :gutter="10">
+                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <DashPie></DashPie>
+                  </el-col>
+                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <DashTable></DashTable>                    
+                  </el-col>
+                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <DashLine></DashLine>
+                  </el-col>
+                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">                  
+                    <DashMap></DashMap> 
+                  </el-col>
+                </el-row>
+            </el-main>
         </el-container>
     </div>
 </template>
@@ -25,64 +41,64 @@ import RedCircle from '../circle/RedCircle.vue';
 import OrangeCircle from '../circle/OrangeCircle.vue';
 import YellowCircle from '../circle/YellowCircle.vue';
 import GreyCircle from '../circle/GreyCircle.vue';
+import DashMap from './DashMap.vue';
+import DashPie from './DashPie.vue';
+import DashLine from './DashLine.vue';
+import DashTable from './DashTable.vue';
+
 export default {
   name: "dashboard",
   created(){
-    setTimeout(function(){
-    this.loading=false;      
-    }.bind(this),1000)
+    this.loading=true;
+    let _this=this;
+    this.$http.get('http://localhost:8086/static/store/tree.json')
+    .then(function(res){
+      _this.loading=false;
+      if(res.data.success==false){
+        toastr.error("获取数据失败","提示");
+        return false;
+      }
+      let treeArr=new Array;
+      let getTreeArr=res.data.treeNodeList;
+      getTreeArr.forEach((element,index) => {
+        let { text: label, id ,fire='',warn='',error='',offline=''} = element;
+        treeArr[index]={
+          label,
+          id,
+          fire,
+          warn,
+          error,
+          offline
+        }
+      });
+      _this.data4=treeArr;
+    })
+    .catch(function(err){
+      _this.loading=false;
+      toastr.error("网络请求失败","提示");      
+    });
   },
   data() {
     return {
       loading:true,
       filterText: '',
-      data4: [{
-        id: 1,
-        label: '一级 1',
-        children: [{
-          id: 4,
-          label: '二级 1-1',
-          children: [{
-            id: 9,
-            label: '三级 1-1-1'
-          }, {
-            id: 10,
-            label: '三级 1-1-2'
-          }]
-        }]
-      }, {
-        id: 2,
-        label: '一级 2',
-        children: [{
-          id: 5,
-          fire:5,
-          warn:3,
-          error:4,
-          offline:1,
-          label: '二级 2-1'
-        }, {
-          id: 6,
-          fire:'',
-          label: '二级 2-2'
-        }]
-      }, {
-        id: 3,
-        label: '一级 3',
-        children: [{
-          id: 7,
-          label: '二级 3-1'
-        }, {
-          id: 8,
-          label: '二级 3-2'
-        }]
-      }],
+      data4: [],
       defaultProps: {
         children: 'children',
         label: 'label'
       }
     }
   },
-  components:{RedCircle,OrangeCircle,YellowCircle,GreyCircle},
+  components:{
+    RedCircle,
+    OrangeCircle,
+    YellowCircle,
+    GreyCircle,
+    DashMap,
+    DashPie,
+    DashLine,
+    DashTable
+  },
   methods:{
     renderContent(h, { node, data, store }) {
         return(
@@ -92,9 +108,9 @@ export default {
       </span>
       <span>
       <RedCircle v-show={data.fire} caseNum={data.fire}></RedCircle>
-      <OrangeCircle v-show={data.warn} caseNum={data.fire}></OrangeCircle>
-      <YellowCircle v-show={data.error} caseNum={data.fire}></YellowCircle>
-      <GreyCircle v-show={data.offline} caseNum={data.fire}></GreyCircle>
+      <OrangeCircle v-show={data.warn} caseNum={data.warn}></OrangeCircle>
+      <YellowCircle v-show={data.error} caseNum={data.error}></YellowCircle>
+      <GreyCircle v-show={data.offline} caseNum={data.offline}></GreyCircle>
       </span>
       </span>
         )
@@ -102,6 +118,11 @@ export default {
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
+    },
+    getCurrentNode(data){
+      if(data){
+        console.log(data);
+      }
     }
   },
     watch: {
@@ -124,6 +145,14 @@ export default {
     color: #333;
 }
 .el-main{
-  background: #00ffff;
+  background: #e0e0e0;
+}
+.el-row{
+  height: 100%;
+}
+.el-col{
+  margin-bottom: 10px;
+  height: 47%;
+  min-height: 200px;
 }
 </style>
