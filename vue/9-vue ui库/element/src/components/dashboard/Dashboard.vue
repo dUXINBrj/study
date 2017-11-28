@@ -121,7 +121,7 @@ export default {
     },
     getCurrentNode(data){
       if(data){
-        console.log(data);
+        // console.log(data);
       }
     }
   },
@@ -152,7 +152,7 @@ export default {
 }
 .el-col{
   margin-bottom: 10px;
-  height: 47%;
+  height: 48%;
   min-height: 200px;
 }
 </style>

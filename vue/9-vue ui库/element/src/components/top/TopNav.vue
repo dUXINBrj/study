@@ -1,7 +1,7 @@
 <template>
 	<div id="topNav">
 <el-menu
-  :default-active="activeIndex"
+  :default-active="this.$route.path"
   class="el-menu-demo"
   mode="horizontal"
   @select="handleSelect"
@@ -19,11 +19,11 @@
       name:'TopNav',
       data() {
         return {
-          activeIndex: '/index/dashboard',
+
         };
       },
       mounted(){
-          this.activeIndex=this.$route.path;
+
       },
       methods: {
         handleSelect(key, keyPath) {

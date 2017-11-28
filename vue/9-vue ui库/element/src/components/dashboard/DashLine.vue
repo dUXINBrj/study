@@ -15,19 +15,91 @@
     require('echarts/lib/component/tooltip');
     require('echarts/lib/component/title');
     require("echarts/lib/chart/line");
+    require("echarts/lib/component/markLine");
     export default {
         mounted(){
             this.initCharts();
         },
         data(){
             return{
-               myChart:{} 
+               myChart:{},
+               option : {
+                title: {
+                    text:null
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show: false
+                },
+                grid: {
+                    "borderWidth": 0,
+                    "top": 5,
+                    textStyle: {
+                        color: "#fff"
+                    }
+                },
+                xAxis:  {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['周一','周二','周三','周四','周五','周六','周日']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} °C'
+                    },
+                    max:12
+                },
+                series: [
+                    {
+                        name:'最低气温',
+                        type:'line',
+                        data:[1, -2, 2, 5, 3, 2, 0],
+                        markLine: {
+                            itemStyle: {
+                                normal: {
+                                    borderWidth: 1,
+                                    lineStyle: {
+                                        type: 'solid',
+                                        color: 'red ',
+                                        width: 2,
+                                    },
+
+                                    label: {
+                                        formatter: '12.6',
+                                        textStyle: {
+                                            fontSize: 16,
+                                            fontWeight: "bolder",
+                                        },
+                                    }
+                                },
+
+                            },
+                            data: [
+                                [{
+                                    coord: ['周一', 9]
+                                }, {
+                                    coord: ['周日', 9]
+                                }],
+                                [{
+                                    coord: ['周一', 1]
+                                }, {
+                                    coord: ['周日', 1]
+                                }]
+                            ],
+                        }
+                    }
+                ]
+            }
             }
         },
         methods:{
             initCharts(){
                 let dom = this.$refs.mychart;
-                this.myChart = echarts.init(dom);
+                let myChart = echarts.init(dom);
+                myChart.setOption(this.option);
             },
         }
     }
@@ -39,6 +111,6 @@
 }
 #dashLine{
     width: 100%;
-    height:200px;
+    height:180px;
 }
 </style>
