@@ -11,6 +11,7 @@
     "report": "cross-env NODE_ENV=development npm_config_report=build webpack-dev-server --open --hot --port 8086"
   },
   "dependencies": {
+    "echarts": "^3.8.5",
     "vue": "^2.4.4"
   },
   "browserslist": [
