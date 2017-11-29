@@ -1,0 +1,17 @@
+{
+    "stringReturn": {
+        "success": true,
+        "message": null,
+        "msg": null,
+        "errorcode": 0,
+        "reObject": {
+            "fireCount": 1,
+            "warningCount": 2,
+            "errorCount": 3,
+            "offLineCount": 0
+        },
+        "s": null,
+        "webSocketMap": null,
+        "sentWebSocket": false
+    }
+}

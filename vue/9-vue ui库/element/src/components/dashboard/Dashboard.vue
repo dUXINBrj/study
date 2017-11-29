@@ -19,13 +19,13 @@
             <el-main>
               <el-row :gutter="10">
                   <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                    <DashPie></DashPie>
+                    <DashPie :pieData="dashPieData"></DashPie>
                   </el-col>
                   <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                    <DashTable></DashTable>                    
+                    <DashTable :tableData="dashTableData"></DashTable>                    
                   </el-col>
                   <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                    <DashLine></DashLine>
+                    <DashLine :linedata="dashLineData"></DashLine>
                   </el-col>
                   <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">                  
                     <DashMap></DashMap> 
@@ -82,6 +82,9 @@ export default {
     return {
       loading:true,
       filterText: '',
+      dashLineData:{},
+      dashPieData:{},
+      dashTableData:{},
       data4: [],
       defaultProps: {
         children: 'children',
@@ -121,11 +124,30 @@ export default {
     },
     getCurrentNode(data){
       if(data){
-        // console.log(data);
+        if(data.id){
+          this.loading=true;
+          let _this=this;
+          this.$http.all([
+            this.$http.get('http://localhost:8086/static/store/dashPie.json',{buildingid:data.id}),
+            this.$http.get('http://localhost:8086/static/store/dashDeviceTable.json',{buildingid:data.id}),
+            this.$http.get('http://localhost:8086/static/store/dashline.json',{buildingid:data.id})
+          ])
+          .then(this.$http.spread(function (pie, table,line) {
+            _this.loading=false;
+            console.log(table);
+            _this.dashPieData=pie.data.stringReturn.reObject;            
+            _this.dashTableData=table.data.stringReturn.reObject;            
+            _this.dashLineData=line.data.WSListReturn.root;
+          }))
+          .catch(this.$http.spread(function () {
+            _this.loading=false;
+            toastr.error("网络请求失败","提示");
+          }));
+        }
       }
     }
   },
-    watch: {
+  watch: {
     filterText(val) {
       this.$refs.tree2.filter(val);
     }
@@ -146,6 +168,7 @@ export default {
 }
 .el-main{
   background: #e0e0e0;
+  padding: 10px;
 }
 .el-row{
   height: 100%;

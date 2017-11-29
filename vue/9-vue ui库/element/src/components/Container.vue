@@ -26,7 +26,7 @@
             <router-view></router-view>
             </transition>
           </el-main>
-		      <el-footer>Footer</el-footer>
+		      <el-footer height="30px">Footer</el-footer>
 		    </el-container>
 		  </el-container>
 		</el-container>
@@ -75,6 +75,9 @@ import TopNav from './top/TopNav.vue'
     color: #fff;
     text-align: center;
     line-height: 60px;
+  }
+  .el-footer{
+    line-height: 30px;
   }
 
   .el-main {

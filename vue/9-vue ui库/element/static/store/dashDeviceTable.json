@@ -1,0 +1,21 @@
+{
+    "stringReturn": {
+        "success": true,
+        "message": null,
+        "msg": null,
+        "errorcode": 0,
+        "reObject": [{
+            "devicename": "＜a href=\"http://http://www＜jd＜com/\"＞京东＜/a＞",
+            "subtypename": "消防电气控制装置",
+            "devicecode": "1231651654651651651616",
+            "buildingid": 2487,
+            "caseid": 209,
+            "casetype": "火警",
+            "housename": "543",
+            "floorno": 1
+        }],
+        "s": null,
+        "webSocketMap": null,
+        "sentWebSocket": false
+    }
+}

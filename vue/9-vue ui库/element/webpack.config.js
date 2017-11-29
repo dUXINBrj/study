@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
-    entry: './src/main.js',
+    entry: ["babel-polyfill", "./src/main.js"],
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
