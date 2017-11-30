@@ -1,38 +1,36 @@
 <template>
     <div id="dashboard" v-loading='loading'>
-        <el-container>
-            <el-aside width="250px">
-              <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
-              <el-tree
-                @node-click="getCurrentNode"
-                :data="data4"
-                :props="defaultProps"
-                node-key="id"
-                :default-expand-all='false'
-                :expand-on-click-node="true"
-                :filter-node-method="filterNode"
-                ref="tree2"
-                :highlight-current="true"
-                :render-content="renderContent">
-              </el-tree>
-            </el-aside>
-            <el-main>
-              <el-row :gutter="10">
-                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                    <DashPie :pieData="dashPieData"></DashPie>
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                    <DashTable :tableData="dashTableData"></DashTable>                    
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                    <DashLine :linedata="dashLineData"></DashLine>
-                  </el-col>
-                  <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">                  
-                    <DashMap></DashMap> 
-                  </el-col>
-                </el-row>
-            </el-main>
-        </el-container>
+      <div class="sidebar">
+        <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
+        <el-tree
+          @node-click="getCurrentNode"
+          :data="data4"
+          :props="defaultProps"
+          node-key="id"
+          :default-expand-all='false'
+          :expand-on-click-node="true"
+          :filter-node-method="filterNode"
+          ref="tree2"
+          :highlight-current="true"
+          :render-content="renderContent">
+        </el-tree>
+      </div>
+      <div class="dashContent">
+        <el-row :gutter="10">
+            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <DashPie :pieData="dashPieData"></DashPie>
+            </el-col>
+            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <DashTable :tableData="dashTableData"></DashTable>
+            </el-col>
+            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <DashLine :lineDeviceData="dashLineDeviceData" :deviceCode="deviceCode"></DashLine>
+            </el-col>
+            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <DashMap></DashMap>
+            </el-col>
+          </el-row>
+      </div>
     </div>
 </template>
 
@@ -51,7 +49,7 @@ export default {
   created(){
     this.loading=true;
     let _this=this;
-    this.$http.get('http://localhost:8086/static/store/tree.json')
+    this.$http.get('/tree.json')
     .then(function(res){
       _this.loading=false;
       if(res.data.success==false){
@@ -75,14 +73,15 @@ export default {
     })
     .catch(function(err){
       _this.loading=false;
-      toastr.error("网络请求失败","提示");      
+      toastr.error("网络请求失败","提示");
     });
   },
   data() {
     return {
       loading:true,
       filterText: '',
-      dashLineData:{},
+      dashLineDeviceData:{},
+      deviceCode:'',//传给折线图组件的设备code 用于选默认值
       dashPieData:{},
       dashTableData:{},
       data4: [],
@@ -128,16 +127,15 @@ export default {
           this.loading=true;
           let _this=this;
           this.$http.all([
-            this.$http.get('http://localhost:8086/static/store/dashPie.json',{buildingid:data.id}),
-            this.$http.get('http://localhost:8086/static/store/dashDeviceTable.json',{buildingid:data.id}),
-            this.$http.get('http://localhost:8086/static/store/dashline.json',{buildingid:data.id})
+            this.$http.get('/dashPie.json',{buildingid:data.id}),
+            this.$http.get('/dashDeviceTable.json',{buildingid:data.id}),
+            this.$http.get('http://localhost:8086/static/store/dashLineDeviceList.json',{buildingid:data.id})
           ])
-          .then(this.$http.spread(function (pie, table,line) {
+          .then(this.$http.spread(function (pie, table,lineDevice) {
             _this.loading=false;
-            console.log(table);
-            _this.dashPieData=pie.data.stringReturn.reObject;            
-            _this.dashTableData=table.data.stringReturn.reObject;            
-            _this.dashLineData=line.data.WSListReturn.root;
+            _this.dashPieData=pie.data.stringReturn.reObject;
+            _this.dashTableData=table.data.stringReturn.reObject;
+            _this.dashLineDeviceData=lineDevice.data.stringReturn.reObject;
           }))
           .catch(this.$http.spread(function () {
             _this.loading=false;
@@ -150,21 +148,45 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree2.filter(val);
+    },
+    dashLineDeviceData:{
+      handler(options){
+        if(options!=0){
+          this.deviceCode=options[0].devicecode;
+        }
+      },
+      deep:true
     }
   },
 };
 </script>
 
 <style scoped>
-#dashboard {
+#dashboard{
   height: 100%;
 }
-.el-container{
-  height: 100%;
+.dashContent{
+    background: none repeat scroll 0 0 #e0e0e0;
+    position: absolute;
+    left: 250px;
+    right: 0;
+    top: 0;
+    bottom:0;
+    width: auto;
+    padding:20px;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
-.el-aside {
-    background-color: #324157;
+.sidebar{
+    display: block;
+    position: absolute;
+    width: 250px;
+    left: 0;
+    top: 0;
+    bottom:0;
+    background: #324157;
     color: #333;
+    overflow-y: auto;
 }
 .el-main{
   background: #e0e0e0;

@@ -22,7 +22,9 @@ import {
     Card,
     Button,
     Table,
-    TableColumn
+    TableColumn,
+    Select,
+    Option
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.css'
@@ -31,7 +33,9 @@ import './assets/css/animate.css'
 import routes from './router.config.js'
 
 Vue.use(vueRouter);
-Vue.prototype.$http = axios
+const BASE_URL = 'http://localhost:8086/static/store';
+axios.defaults.baseURL=BASE_URL;
+Vue.prototype.$http = axios;
 
 
 Vue.use(Container);
@@ -54,6 +58,8 @@ Vue.use(Card);
 Vue.use(Button);
 Vue.use(Table);
 Vue.use(TableColumn);
+Vue.use(Select);
+Vue.use(Option);
 
 const router = new vueRouter({ routes });
 

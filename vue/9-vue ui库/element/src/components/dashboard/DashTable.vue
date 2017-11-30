@@ -1,7 +1,7 @@
 <template>
     <el-card class="box-card dashTableCard">
         <div slot="header" class="clearfix">
-        <span>表格</span>
+        <span>实时动态</span>
         </div>
         <div id="dashTable">
             <el-table
@@ -33,7 +33,7 @@
                 </template>
                 </el-table-column>
                 <el-table-column
-                label="详情"
+                label="处理"
                 width="70">
                     <template slot-scope="scope">
                     <el-button
