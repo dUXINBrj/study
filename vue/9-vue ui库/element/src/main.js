@@ -3,6 +3,7 @@ import App from './App.vue'
 import vueRouter from 'vue-router'
 import axios from 'axios';
 import "babel-polyfill";
+import BaiduMap from 'vue-baidu-map';
 import {
     Container,
     Header,
@@ -24,17 +25,25 @@ import {
     Table,
     TableColumn,
     Select,
-    Option
+    Option,
+    Icon,
+    Checkbox,
+    CheckboxButton,
+    CheckboxGroup
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.css'
 import './assets/css/animate.css'
+import config from './components/config.vue'
 
 import routes from './router.config.js'
 
 Vue.use(vueRouter);
-const BASE_URL = 'http://localhost:8086/static/store';
-axios.defaults.baseURL=BASE_URL;
+Vue.use(BaiduMap, {
+  ak: 'zwVpEq7Soe6T65PiCynLj5qeGfnSFcjU'
+});
+Vue.prototype.$lib = config;
+axios.defaults.baseURL=config.baseUrl;
 Vue.prototype.$http = axios;
 
 
@@ -60,6 +69,10 @@ Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(Icon);
+Vue.use(Checkbox);
+Vue.use(CheckboxButton);
+Vue.use(CheckboxGroup);
 
 const router = new vueRouter({ routes });
 
@@ -67,4 +80,4 @@ let vm = new Vue({
     el: '#app',
     router,
     render: h => h(App)
-})
+});

@@ -16,7 +16,18 @@ body{
 a {
     text-decoration: none;
 }
-
+.content{
+  background: none repeat scroll 0 0 #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom:30px;
+  width: auto;
+  padding:0;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
 .el-tree {
     background: #324157;
     color: #bfcbd9;
@@ -69,4 +80,12 @@ a {
     border-radius: 3px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: rgb(137, 141, 141);
+}
+
+
+.BMap_cpyCtrl{
+  display:none;
+}
+.anchorBL{
+  display:none;
 }

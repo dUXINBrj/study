@@ -13,7 +13,8 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "echarts": "^3.8.5",
-    "vue": "^2.4.4"
+    "vue": "^2.4.4",
+    "vue-baidu-map": "^0.18.9"
   },
   "browserslist": [
     "> 1%",

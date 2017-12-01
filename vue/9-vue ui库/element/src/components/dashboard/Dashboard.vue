@@ -1,19 +1,23 @@
 <template>
-    <div id="dashboard" v-loading='loading'>
+    <div class="content" v-loading='loading'>
       <div class="sidebar">
-        <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
-        <el-tree
-          @node-click="getCurrentNode"
-          :data="data4"
-          :props="defaultProps"
-          node-key="id"
-          :default-expand-all='false'
-          :expand-on-click-node="true"
-          :filter-node-method="filterNode"
-          ref="tree2"
-          :highlight-current="true"
-          :render-content="renderContent">
-        </el-tree>
+        <div class="treeTool">
+          <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
+        </div>
+        <div class="treeBox">
+          <el-tree
+            @node-click="getCurrentNode"
+            :data="data4"
+            :props="defaultProps"
+            node-key="id"
+            :default-expand-all='false'
+            :expand-on-click-node="true"
+            :filter-node-method="filterNode"
+            ref="tree2"
+            :highlight-current="true"
+            :render-content="renderContent">
+          </el-tree>
+        </div>
       </div>
       <div class="dashContent">
         <el-row :gutter="10">
@@ -27,7 +31,7 @@
               <DashLine :lineDeviceData="dashLineDeviceData" :deviceCode="deviceCode"></DashLine>
             </el-col>
             <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-              <DashMap></DashMap>
+              <DashMap :buildingInfo="dashBuildingInfo"></DashMap>
             </el-col>
           </el-row>
       </div>
@@ -49,7 +53,7 @@ export default {
   created(){
     this.loading=true;
     let _this=this;
-    this.$http.get('/tree.json')
+    this.$http.get(_this.$lib.dashBoard.getTree)
     .then(function(res){
       _this.loading=false;
       if(res.data.success==false){
@@ -70,6 +74,10 @@ export default {
         }
       });
       _this.data4=treeArr;
+      setTimeout(function () { //加载完树形节点后 默认选中第一个
+        let dom = _this.$refs.tree2;
+        dom.$el.children[0].click();
+      },500)
     })
     .catch(function(err){
       _this.loading=false;
@@ -84,6 +92,7 @@ export default {
       deviceCode:'',//传给折线图组件的设备code 用于选默认值
       dashPieData:{},
       dashTableData:{},
+      dashBuildingInfo:'',
       data4: [],
       defaultProps: {
         children: 'children',
@@ -127,15 +136,17 @@ export default {
           this.loading=true;
           let _this=this;
           this.$http.all([
-            this.$http.get('/dashPie.json',{buildingid:data.id}),
-            this.$http.get('/dashDeviceTable.json',{buildingid:data.id}),
-            this.$http.get('http://localhost:8086/static/store/dashLineDeviceList.json',{buildingid:data.id})
+            this.$http.get(_this.$lib.dashBoard.getPie,{buildingid:data.id}),
+            this.$http.get(_this.$lib.dashBoard.getTable,{buildingid:data.id}),
+            this.$http.get(_this.$lib.dashBoard.getLineDevice,{buildingid:data.id}),
+            this.$http.get(_this.$lib.dashBoard.getBuildingInfo,{buildingid:data.id})
           ])
-          .then(this.$http.spread(function (pie, table,lineDevice) {
+          .then(this.$http.spread(function (pie, table,lineDevice,building) {
             _this.loading=false;
             _this.dashPieData=pie.data.stringReturn.reObject;
             _this.dashTableData=table.data.stringReturn.reObject;
             _this.dashLineDeviceData=lineDevice.data.stringReturn.reObject;
+            _this.dashBuildingInfo=building.data.WSListReturn.root;
           }))
           .catch(this.$http.spread(function () {
             _this.loading=false;
@@ -162,9 +173,6 @@ export default {
 </script>
 
 <style scoped>
-#dashboard{
-  height: 100%;
-}
 .dashContent{
     background: none repeat scroll 0 0 #e0e0e0;
     position: absolute;
@@ -199,5 +207,13 @@ export default {
   margin-bottom: 10px;
   height: 48%;
   min-height: 200px;
+}
+.treeTool{
+  height: 10%;
+  min-height:40px;
+}
+.treeBox{
+  height: 90%;
+  overflow-y: auto;
 }
 </style>

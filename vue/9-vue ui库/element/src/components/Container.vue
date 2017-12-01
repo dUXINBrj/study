@@ -18,11 +18,9 @@
           </el-col>
         </el-row>
 		  </div>
-      <div class="content">
-          <transition mode="out-in" enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
-          <router-view></router-view>
-          </transition>
-      </div>
+      <transition mode="out-in" enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
+      <router-view></router-view>
+      </transition>
       <div class="footer">
         footer
       </div>
@@ -41,11 +39,11 @@ import TopNav from './top/TopNav.vue'
     computed:{
       username(){
           let username = localStorage.getItem('ms_username');
-          // if(!username){
-          //   this.$router.replace('/login');
-          // }else{
-          //   this.name=username
-          // }
+           if(!username){
+             this.$router.replace('/login');
+           }else{
+             this.name=username
+           }
           return username ? username : this.name;
       }
     },
@@ -59,22 +57,10 @@ import TopNav from './top/TopNav.vue'
     },
     components:{
       TopNav
-      }
+    }
 	}
 </script>
 <style scoped>
-  .content{
-    background: none repeat scroll 0 0 #fff;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 60px;
-    bottom:30px;
-    width: auto;
-    padding:0;
-    box-sizing: border-box;
-    overflow-y: hidden;
-  }
   .header {
     position: relative;
     box-sizing: border-box;

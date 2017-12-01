@@ -39,7 +39,7 @@
                     <el-button
                     type="text"
                     size="mini"
-                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                    @click="handleEdit(scope.$index, scope.row)">处理</el-button>
                     </template>
                 </el-table-column>
             </el-table>

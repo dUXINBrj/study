@@ -3,7 +3,7 @@
         <div slot="header" class="clearfix" style="position: relative">
         <span>折线图</span>
           <transition enter-active-class="animated bounceInRight" leave-active-class="animated bounceOutRight">
-            <el-button style="float: right; padding: 3px 0" type="text" @click="showSel=!showSel" v-show="!showSel" class="dasnPieShowSel">show</el-button>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="showSel=!showSel" v-show="!showSel" class="dasnPieShowSel"><i class="el-icon-more-outline"></i></el-button>
           </transition>
           <transition enter-active-class="animated bounceInRight" leave-active-class="animated bounceOutRight">
           <div class="dasnPieSel" v-show="showSel">
@@ -15,7 +15,7 @@
                 :value="item.devicecode">
               </el-option>
             </el-select>
-            <span @click="showSel=!showSel">--》</span>
+            <span @click="showSel=!showSel"><i class="el-icon-d-arrow-right"></i></span>
             </div>
           </transition>
         </div>
@@ -41,7 +41,7 @@
             return{
                lineChart:{},//保存echarts折线图实例
                dashLineDevice:'',//下拉框选择的值
-               showSel:true,//显示隐藏下拉选择框
+               showSel:false,//显示隐藏下拉选择框
                dashLineDeviceList:[],//下拉框option数据
                echartsLoading:false,
                echsrtsData:[],
@@ -210,7 +210,7 @@
               handler(options) {
                 let _this=this;
                 this.echartsLoading=true;
-                this.$http.get('/dashline.json',{devicecode:options}).
+                this.$http.get(_this.$lib.dashBoard.getLine,{devicecode:options}).
                 then(function (response) {
                   _this.echartsLoading=false;
                   if(!response.data.WSListReturn.success){
@@ -264,6 +264,9 @@
     display: inline-block;
     position: absolute;
     right: 5px;
-    top:-2px;
+    top:0;
+  }
+  .el-icon-d-arrow-right{
+    cursor: pointer;
   }
 </style>

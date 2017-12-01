@@ -1,0 +1,43 @@
+{
+  "treeNodeList": [
+    {
+      "id": "193",
+      "text": "上海市",
+      "leaf": false,
+      "target": null,
+      "iconCls": "icon-city",
+      "gisx": null,
+      "gisy": null,
+      "href": null,
+      "hrefTarget": null,
+      "icon": null,
+      "children": null
+    },
+    {
+      "id": "194",
+      "text": "无锡市",
+      "leaf": false,
+      "target": null,
+      "iconCls": "icon-city",
+      "gisx": null,
+      "gisy": null,
+      "href": null,
+      "hrefTarget": null,
+      "icon": null,
+      "children": null
+    },
+    {
+      "id": "195",
+      "text": "北京市",
+      "leaf": false,
+      "target": null,
+      "iconCls": "icon-city",
+      "gisx": null,
+      "gisy": null,
+      "href": null,
+      "hrefTarget": null,
+      "icon": null,
+      "children": null
+    }
+  ]
+}

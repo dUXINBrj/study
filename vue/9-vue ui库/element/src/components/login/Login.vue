@@ -1,6 +1,6 @@
 <template>
     <div class="container demo-1">
-			<div class="content">
+			<div class="loginContent">
 				<div id="large-header" class="large-header">
 					<canvas id="demo-canvas"></canvas>
 					<div class="main-title animated bounceInDown">
@@ -157,7 +157,7 @@ button:active {
 
     border: 0px solid #ef4300;
 }
-.demo-1,.content,.large-header{
+.demo-1,.loginContent,.large-header{
     height: 100%;
 }
 </style>

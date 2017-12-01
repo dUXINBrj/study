@@ -5,7 +5,7 @@
         <el-button style="float: right; padding: 3px 0" type="text"></el-button>
         </div>
         <div id="dashPie" ref="mychart">
-        
+
         </div>
     </el-card>
 </template>
@@ -48,10 +48,10 @@
                             radius : '85%',
                             center: ['50%', '50%'],
                             data:[
-                                {value:335, name:'火警'},
-                                {value:310, name:'告警'},
-                                {value:234, name:'故障'},
-                                {value:135, name:'离线'},
+                                {value:0, name:'火警'},
+                                {value:0, name:'告警'},
+                                {value:0, name:'故障'},
+                                {value:0, name:'离线'},
                             ],
                             itemStyle: {
                                 emphasis: {
@@ -83,7 +83,7 @@
                     //没有有相关数据的情况下给echarts标题 并置空data
                     if(options.fireCount==0 && options.warningCount==0 && options.errorCount==0 && options.offLineCount==0){
                         this.option.series[0].data=[];
-                        this.option.title.text='暂无相关数据';                        
+                        this.option.title.text='暂无相关数据';
                         this.PieChart.setOption(this.option);
                     }else{
                         this.option.series[0].data=[
@@ -92,7 +92,7 @@
                             {value:options.errorCount, name:'故障'},
                             {value:options.offLineCount, name:'离线'},
                         ]
-                        this.option.title.text=null;   
+                        this.option.title.text=null;
                         this.PieChart.setOption(this.option);
                     }
                 },
