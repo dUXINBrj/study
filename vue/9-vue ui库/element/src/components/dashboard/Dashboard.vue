@@ -57,7 +57,10 @@ export default {
     .then(function(res){
       _this.loading=false;
       if(res.data.success==false){
-        toastr.error("获取数据失败","提示");
+        _this.$msg({
+          message: '获取数据失败',
+          type: 'error'
+        });
         return false;
       }
       let treeArr=new Array;
@@ -81,7 +84,10 @@ export default {
     })
     .catch(function(err){
       _this.loading=false;
-      toastr.error("网络请求失败","提示");
+      _this.$msg({
+        message: '获取数据失败',
+        type: 'error'
+      });
     });
   },
   data() {
@@ -150,7 +156,10 @@ export default {
           }))
           .catch(this.$http.spread(function () {
             _this.loading=false;
-            toastr.error("网络请求失败","提示");
+            _this.$msg({
+              message: '获取数据失败',
+              type: 'error'
+            });
           }));
         }
       }

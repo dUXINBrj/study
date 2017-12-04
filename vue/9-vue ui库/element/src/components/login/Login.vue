@@ -31,10 +31,16 @@
         methods:{
 			login(){
 				if(this.loginName=='' || this.loginPwd==''){
-					toastr.error("用户名或密码不能为空！");
+          this.$msg({
+            message: '用户名或密码不能为空',
+            type: 'warning'
+          });
 				}else{
-                    localStorage.setItem('ms_username',this.loginName);
-					toastr.success("登陆成功!");
+          localStorage.setItem('ms_username',this.loginName);
+          this.$msg({
+            message: '登录成功',
+            type: 'success'
+          });
 					setTimeout(function(){
 						this.$router.replace({path:'/index'});
 					}.bind(this),1000)

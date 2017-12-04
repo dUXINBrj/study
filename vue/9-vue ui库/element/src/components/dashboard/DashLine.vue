@@ -214,7 +214,10 @@
                 then(function (response) {
                   _this.echartsLoading=false;
                   if(!response.data.WSListReturn.success){
-                    toastr.error("获取设备模拟量值失败！");
+                    _this.$msg({
+                      message: '获取模拟量值失败',
+                      type: 'error'
+                    });
                     _this.echsrtsData=[];
                     return false;
                   }
@@ -223,7 +226,10 @@
                 .catch(function (error) {
                   _this.echartsLoading=false;
                   _this.echsrtsData=[];
-                  toastr.error("网络请求失败，请稍后重试！");
+                  _this.$msg({
+                    message: '获取模拟量值失败',
+                    type: 'error'
+                  });
                 });
               },
               deep:true
