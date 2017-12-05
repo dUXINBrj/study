@@ -11,20 +11,13 @@
   active-text-color="#ffd04b">
   <el-menu-item index="/index/dashboard">dashboard</el-menu-item>
   <el-menu-item index="/index/level1map">地图</el-menu-item>
+  <el-menu-item index="/index/fire">火警</el-menu-item>
 </el-menu>
 	</div>
 </template>
 <script>
     export default {
       name:'TopNav',
-      data() {
-        return {
-
-        };
-      },
-      mounted(){
-
-      },
       methods: {
         handleSelect(key, keyPath) {
           // console.log(key, keyPath);

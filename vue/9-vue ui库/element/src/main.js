@@ -25,7 +25,12 @@ import {
     Checkbox,
     CheckboxButton,
     CheckboxGroup,
-    Message
+    Message,
+    DatePicker,
+    Tabs,
+    TabPane,
+    Tooltip,
+    Pagination
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.css'
@@ -64,6 +69,11 @@ Vue.use(Icon);
 Vue.use(Checkbox);
 Vue.use(CheckboxButton);
 Vue.use(CheckboxGroup);
+Vue.use(DatePicker);
+Vue.use(Tabs);
+Vue.use(TabPane);
+Vue.use(Tooltip);
+Vue.use(Pagination);
 
 const router = new vueRouter({ routes });
 

@@ -14,6 +14,7 @@
           @node-click="getCurrentNode"
           :data="buildingTree"
           :props="defaultProps"
+          lazy
           node-key="id"
           :default-expand-all='false'
           :expand-on-click-node="true"
@@ -79,9 +80,11 @@
           mapLoading:false,
           defaultProps: {
             children: 'children',
-            label: 'label'
+            label: 'text',
+            isLeaf:'leaf'
           },
           filterText:'',
+          treeDblClick:false,
           treeBuildingBtnLoading:false,
           buildingTree:[],
           isAllBuilding:'',//用于判断是否为只看建筑模式
@@ -94,8 +97,8 @@
           normalCheck:true,
           buildingInfo:[],
           mapCenter:{
-            lng: 121.489191,
-            lat: 31.239876
+            lng: 116.404,
+            lat: 39.915
           },
           showMarker:false,
           iconOpt:{
@@ -154,14 +157,17 @@
               let treeArr=new Array;
               let getTreeArr=res.data.treeNodeList;
               getTreeArr.forEach((element,index) => {
-                let { text: label, id ,fire='',warn='',error='',offline=''} = element;
+                let { text, id ,fire='',warn='',error='',offline='',leaf,gisx,gisy} = element;
                 treeArr[index]={
-                  label,
+                  text,
                   id,
                   fire,
                   warn,
                   error,
-                  offline
+                  offline,
+                  leaf,
+                  gisx,
+                  gisy
                 }
               });
               _this.buildingTree=treeArr;
@@ -219,23 +225,68 @@
             </div>`;
             break;
             case "fire":return`<div style='width: 300px'>
-				<div style='margin: 10px;'>
-				<h3 class='mapCover'><img src='../../../static/img/map1-userorg.png'>社会单位：${root.userorg_name}</h3>
-				<h3 class='mapCover'><img src='../../../static/img/map1-build.png'>建筑名称：${root.buildingname}</h3>
-            	<h3 class='mapCover'><img src='../../../static/img/map1-address.png'>建筑地址：${root.address}</h3>
-				<h3 class='mapCover'><img src='../../../static/img/map1-floor.png'>楼层名称：${root.floorname_case_status}</h3>
-				<h3 class='mapCover'><img src='../../../static/img/map1-device.png'>设备名称：${root.devicename_case_status} &nbsp（火警）</h3>
-				<h3 class='mapCover'><img src='../../../static/img/map1-contact.png'>联系人：${root.firecontactname}"</h3>
-				<h3 class='mapCover'><img src='../../../static/img/map1-phone.png'>联系电话：${root.firecontacttel}</h3>
-				<h3 class='mapCover'><img src='../../../static/img/map1-operator.png'>运维单位：${root.operator_name}</h3></div>
-				<div style='text-align:center;margin-top:20px;border-top:1px solid #ccc';padding:10px>
-				<div style='margin-right:10px;border-right:1px solid #ccc;padding-right:35px;margin-left:60px;margin-top:10px;float:left'>
-				<div style='height:14px;width:14px;margin-top:3px;float:left;margin-right:5px;background-image:url(../images/deal.png)'></div><div style='float:left'>处理</div></div>
-				<div style='margin-top:10px;margin-left:30px;float:left'>
-				<div style='height:14px;width:14px;float:left;margin-top:3px;margin-right:5px;background-image:url(../images/info.png)'></div><div style='float:left'>跳转详情</div></div></div></div>`;break;
-            case "warn":return`<div>warn</div>`;break;
-            case "error":return`<div>error</div>`;break;
-            case "offline":return`<div>offline</div>`;break;
+              <div style='margin: 10px;'>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-userorg.png'>社会单位：${root.userorg_name}</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-build.png'>建筑名称：${root.buildingname}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-address.png'>建筑地址：${root.address}</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-floor.png'>楼层名称：${root.floorname_case_status}</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-device.png'>设备名称：${root.devicename_case_status} &nbsp（火警）</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-contact.png'>联系人：${root.firecontactname}"</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-phone.png'>联系电话：${root.firecontacttel}</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-operator.png'>运维单位：${root.operator_name}</h3>
+              </div>
+              <div style='text-align:center;margin-top:20px;border-top:1px solid #ccc';padding:10px>
+				        <div style='margin-right:10px;border-right:1px solid #ccc;padding-right:35px;margin-left:60px;margin-top:10px;float:left'>
+				        <div style='height:14px;width:14px;margin-top:3px;float:left;margin-right:5px;background-image:url(../../../static/img/deal.png)'></div>
+				        <div style='float:left'>处理</div>
+              </div>
+              <div style='margin-top:10px;margin-left:30px;float:left'>
+				        <div style='height:14px;width:14px;float:left;margin-top:3px;margin-right:5px;background-image:url(../../../static/img/info.png)'></div>
+				        <div style='float:left'>跳转详情</div>
+              </div></div></div>`;break;
+            case "warn":return`<div style='width: 300px'>
+              <div style='margin: 10px;'>
+                <h3 class='mapCover'><img src='../../../static/img/map1-userorg.png'>社会单位：${root.userorg_name}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-build.png'>建筑名称：${root.buildingname}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-address.png'>建筑地址：${root.address}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-floor.png'>楼层名称：${root.floorname_case_status}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-device.png'>设备名称：${root.devicename_case_status} &nbsp（告警）</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-operator.png'>运维单位：${root.operator_name}</h3>
+              </div>
+              <div style='text-align:center;margin-top:20px;border-top:1px solid #ccc';padding:10px'>
+                <div id='gotoLevel2' style='margin-top:10px;margin-left:100px;float:left'>
+                <div style='height:14px;width:14px;float:left;margin-top:3px;margin-right:5px;background-image:url(../../../static/img/info.png)'></div>
+                <div style='float:left'>跳转详情</div>
+              </div></div></div>`;break;
+            case "error":return`<div style='width: 300px'>
+              <div style='margin: 10px;'>" +
+				        <h3 class='mapCover'><img src='../../../static/img/map1-userorg.png'>社会单位：${root.userorg_name}</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-build.png'>建筑名称：${root.buildingname}</h3>
+            	  <h3 class='mapCover'><img src='../../../static/img/map1-address.png'>建筑地址：${root.address}</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-floor.png'>楼层名称：${root.floorname_case_status}</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-device.png'>设备名称：${root.devicename_case_status} &nbsp（故障）</h3>
+				        <h3 class='mapCover'><img src='../../../static/img/map1-operator.png'>运维单位：${root.operator_name}</h3>
+              </div>
+              <div style='text-align:center;margin-top:20px;border-top:1px solid #ccc';padding:10px'>
+				        <div id='gotoLevel2' style='margin-top:10px;margin-left:100px;float:left'>
+                  <div style='height:14px;width:14px;float:left;margin-top:3px;margin-right:5px;background-image:url(../../../static/img/info.png)'></div>
+                  <div style='float:left'>跳转详情</div>
+                </div>
+              </div></div>`;break;
+            case "offline":return`<div style='width: 300px'>
+              <div style='margin: 10px;'>
+                <h3 class='mapCover'><img src='../../../static/img/map1-userorg.png'>社会单位：${root.userorg_name}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-build.png'>建筑名称：${root.buildingname}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-address.png'>建筑地址：${root.address}</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-host.png'>主机名称：${root.offfonline_host_name} &nbsp（离线）</h3>
+                <h3 class='mapCover'><img src='../../../static/img/map1-operator.png'>运维单位：${root.offfonline_host_name}</h3>
+              </div>
+              <div style='text-align:center;margin-top:20px;border-top:1px solid #ccc';padding:10px'>
+                <div id='gotoLevel2' style='margin-top:10px;margin-left:100px;float:left'>
+                  <div style='height:14px;width:14px;float:left;margin-top:3px;margin-right:5px;background-image:url(../../../static/img/info.png)'></div>
+                  <div style='float:left'>跳转详情</div>
+                </div>
+              </div></div>`;break;
             default:break;
           }
         },
@@ -265,7 +316,27 @@
           this.getTreeBuilding();
         },
         getCurrentNode(data){
-
+          if(!data.leaf){
+            return false;
+          }
+          if(!this.treeDblClick){ //element ui的树形节点未提供双击事件的钩子函数 因此用定时器模拟双事件
+            this.treeDblClick=true;
+            let _this=this;
+            setTimeout(function () {
+              _this.treeDblClick=false;
+            },300)
+          }else{
+            console.log(1);
+            return false;
+          }
+          this.map.panTo(new BMap.Point(data.gisx,data.gisy));
+          let overlays=this.map.getOverlays();
+          for(let i=0;i<overlays.length;i++){ //点击树形节点建筑 遍历当前地图上的遮盖物 触发点击事件
+            if(overlays[i].point.lat==data.gisy && overlays[i].point.lng==data.gisx){
+              overlays[i].V.click();
+              break;
+            }
+          }
         },
         handler({BMap, map}){
           //地图加载完成 callback
@@ -277,6 +348,18 @@
       watch:{
         filterText(val) {
           this.$refs.buildingTree.filter(val);
+        },
+        buildingInfo:{
+          handler(options){
+            if(options.length!=0){
+              let _this=this;
+              setTimeout(function () {//延迟一秒保证地图加载完成 否则控制台会报错 但是报错并不会影响功能效果
+                _this.mapCenter.lng=_this.buildingInfo[0].gisx;
+                _this.mapCenter.lat=_this.buildingInfo[0].gisy;
+              },1000);
+            }
+          },
+          deep:true
         }
       },
       computed:{
@@ -284,12 +367,6 @@
           let _this=this;
           let obj=new Object;
           obj=this.buildingInfo;
-//          if(obj.length!=0){
-//            this.mapCenter={
-//              lng: obj[0].gisx,
-//                lat: obj[0].gisy
-//            }
-//          }
           obj.forEach((val,index)=>{
             let mapIcon=this.$lib.dashBoard.mapRedIcon;
             let animate='';

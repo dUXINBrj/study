@@ -8,9 +8,10 @@
           </el-col>
           <el-col :span="2">
             <el-dropdown trigger="click" @command="handleCommand">
-              <span class="el-dropdown-link">
-                您好 {{username}}<img class="header-icon" src="../assets/img/img.gif">
-              </span>
+              <div class="el-dropdown-link">
+                <span>您好 {{username}}</span>
+                <img class="header-icon" src="../assets/img/img.gif">
+              </div>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="loginout">退出</el-dropdown-item>
               </el-dropdown-menu>
@@ -86,11 +87,17 @@ import TopNav from './top/TopNav.vue'
   }
   .el-dropdown{
     color: #efefef;
+    height: 60px;
+    float: right;
+  }
+  .el-dropdown-link{
+    height: 60px;
+    cursor: pointer;
   }
   .header-icon{
     width: 40px;
     border-radius: 50%;
-    vertical-align: middle;
+    vertical-align: -18%;
     margin-left: 10px;
   }
 </style>
