@@ -1,7 +1,7 @@
 <template>
   <div class="content" v-loading='isloading'>
     <div class="searchBox">
-      <SearchFormNow></SearchFormNow>
+      <SearchFormNow :searchData="searchData"></SearchFormNow>
     </div>
     <div class="tabContent">
       <el-tabs type="border-card" :value="tableMode">
@@ -30,7 +30,10 @@
       return{
         isloading:false,
         tableMode:'now',
-        currentPageNow: 4
+        currentPageNow: 4,
+        searchData:{
+          data:''
+        }
       }
     },
     components:{
@@ -48,6 +51,9 @@
   }
 </script>
 <style scoped>
+.content{
+  overflow-y: auto;
+}
 .searchBox{
   padding: 10px;
 }
