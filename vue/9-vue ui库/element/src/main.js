@@ -30,7 +30,8 @@ import {
     Tabs,
     TabPane,
     Tooltip,
-    Pagination
+    Pagination,
+    Dialog
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.css'
@@ -76,6 +77,7 @@ Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Tooltip);
 Vue.use(Pagination);
+Vue.use(Dialog);
 
 const router = new vueRouter({ routes });
 
