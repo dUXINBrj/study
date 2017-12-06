@@ -1,12 +1,12 @@
 <template>
   <div class="content" v-loading='isloading'>
     <div class="searchBox">
-      <SearchFormNow :searchData="searchData"></SearchFormNow>
+      <SearchForm :searchData="searchData" :mode="tableMode"></SearchForm>
     </div>
     <div class="tabContent">
-      <el-tabs type="border-card" :value="tableMode">
+      <el-tabs type="border-card" :value="tableMode" @tab-click="tabClick">
         <el-tab-pane label="实 时" name="now">
-          <TableNow></TableNow>
+          <TableNow :tableData="tableData"></TableNow>
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-  import SearchFormNow from './SearchFormNow.vue'
+  import SearchForm from './SearchForm.vue'
   import TableNow from './tableNow.vue'
   export default {
     data(){
@@ -32,15 +32,71 @@
         tableMode:'now',
         currentPageNow: 4,
         searchData:{
-          data:''
-        }
+          data:{
+            firecaseid:'',
+            devicecode:'',
+            devicename:'',
+            firecasestatus:'',
+            fireserviceorgid:'',
+            userorgid:'',
+            buildingid:'',
+            isteststatus:'',
+            dealwithuserid:'',
+            devicetypeid:'',
+            devicesubtypeid:'',
+            firerealtimestatus:'',
+            closeuserid:'',
+            isrealfire:'',
+            casebegintime:'',
+            casebegintimeend:''
+          }
+        },
+        tableData:[]
       }
     },
+    created: function () {
+      Event.$on('search',function (val) {
+        this.search();
+      }.bind(this));
+      this.search();
+    },
+    beforeDestroy: function () {
+      Event.$off('search')
+    },
     components:{
-      SearchFormNow,
+      SearchForm,
       TableNow
     },
     methods:{
+      tabClick(scope){
+        this.tableMode=scope.name;
+      },
+      search(){
+        if(this.tableMode=='now'){
+          this.searchData.data.device_list_type=0;
+        }else{
+          this.searchData.data.device_list_type=1;
+        }
+        let _this=this;
+        this.$http.get(_this.$lib.fire.findDeviceFireCasePage,_this.searchData.data)
+          .then(function(res){
+            if(res.data.WSListReturn.success==false){
+              _this.$msg({
+                message: '获取数据失败',
+                type: 'error'
+              });
+              return false;
+            }
+            let root=res.data.WSListReturn.root;
+            _this.tableData=root;
+          })
+          .catch(function(err){
+            _this.$msg({
+              message: '获取数据失败',
+              type: 'error'
+            });
+          });
+      },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },

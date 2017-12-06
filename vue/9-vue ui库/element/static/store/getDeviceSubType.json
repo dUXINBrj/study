@@ -1,0 +1,33 @@
+{
+  "WSListReturn": {
+    "totalProperty": 2,
+    "root": [
+      {
+        "devicesubtypeid": 37,
+        "subtypename": "气体灭火控制器",
+        "subtypedesc": "气体灭火控制器",
+        "subtypecode": "81",
+        "devicetypeid": 2,
+        "devicetypename": "控制系统",
+        "status": 1,
+        "createtime": 1481139612000,
+        "updatetime": 1481139612000
+      },
+      {
+        "devicesubtypeid": 38,
+        "subtypename": "消防电气控制装置",
+        "subtypedesc": "消防电气控制装置",
+        "subtypecode": "82",
+        "devicetypeid": 2,
+        "devicetypename": "控制系统",
+        "status": 1,
+        "createtime": 1481139612000,
+        "updatetime": 1481139612000
+      }
+    ],
+    "success": true,
+    "errorCode": 0,
+    "errorMessage": null,
+    "object": null
+  }
+}

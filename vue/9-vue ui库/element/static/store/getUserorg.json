@@ -1,0 +1,65 @@
+{
+  "WSListReturn": {
+    "totalProperty": 3,
+    "root": [
+      {
+        "userorgid": 139,
+        "orgname": "sqai_01_社会",
+        "orgdesc": null,
+        "status": 1,
+        "createtime": 1500886553000,
+        "updatetime": 1500886553000,
+        "fireserviceorgid": 157,
+        "firecontactname": null,
+        "firecontacttel": null,
+        "areaid": null,
+        "orgaddress": "",
+        "orgtel": "212312312",
+        "headname": "二为人妻为人",
+        "headtel": "31232131244",
+        "fireserviceorg_name": null,
+        "userorg_ids": null
+      },
+      {
+        "userorgid": 142,
+        "orgname": "A",
+        "orgdesc": null,
+        "status": 1,
+        "createtime": 1503042864000,
+        "updatetime": 1503042864000,
+        "fireserviceorgid": 157,
+        "firecontactname": null,
+        "firecontacttel": null,
+        "areaid": null,
+        "orgaddress": "",
+        "orgtel": "65776767676",
+        "headname": "HGHG",
+        "headtel": "78678678676",
+        "fireserviceorg_name": null,
+        "userorg_ids": null
+      },
+      {
+        "userorgid": 151,
+        "orgname": "20171106社会单位",
+        "orgdesc": null,
+        "status": 1,
+        "createtime": 1509945977000,
+        "updatetime": 1509945977000,
+        "fireserviceorgid": 157,
+        "firecontactname": null,
+        "firecontacttel": null,
+        "areaid": null,
+        "orgaddress": "",
+        "orgtel": "3424132412",
+        "headname": "dsfsdfsadf",
+        "headtel": "42341234123",
+        "fireserviceorg_name": null,
+        "userorg_ids": null
+      }
+    ],
+    "success": true,
+    "errorCode": 0,
+    "errorMessage": null,
+    "object": null
+  }
+}

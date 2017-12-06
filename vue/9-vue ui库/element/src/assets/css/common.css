@@ -106,3 +106,7 @@ a {
 .searchContent .el-input-group__prepend{
   padding: 0 5px;
 }
+
+.el-table .fire-red {
+  background: #fdc2cf;
+}

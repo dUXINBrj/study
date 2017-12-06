@@ -1,0 +1,41 @@
+{
+  "WSListReturn": {
+    "totalProperty": 2,
+    "root": [
+      {
+        "fireserviceorgid": 157,
+        "orgname": "sqai_01_服务",
+        "orgdesc": null,
+        "status": 1,
+        "createtime": 1500886527000,
+        "updatetime": 1500886527000,
+        "operateorgid": 202,
+        "orgaddress": "",
+        "orgtel": "12345554433",
+        "headname": "ddfdsa",
+        "headtel": "41234134341",
+        "operateorg_orgname": null,
+        "fireserviceorg_ids": null
+      },
+      {
+        "fireserviceorgid": 158,
+        "orgname": "0821服务",
+        "orgdesc": null,
+        "status": 1,
+        "createtime": 1503281945000,
+        "updatetime": 1503281945000,
+        "operateorgid": 204,
+        "orgaddress": "",
+        "orgtel": "12312312312",
+        "headname": "12312312312",
+        "headtel": "12312312312",
+        "operateorg_orgname": null,
+        "fireserviceorg_ids": null
+      }
+    ],
+    "success": true,
+    "errorCode": 0,
+    "errorMessage": null,
+    "object": null
+  }
+}

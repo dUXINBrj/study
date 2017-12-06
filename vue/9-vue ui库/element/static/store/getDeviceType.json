@@ -1,0 +1,47 @@
+{
+  "WSListReturn": {
+    "totalProperty": 9,
+    "root": [
+      {
+        "id": 1,
+        "deviceTypes": "报警系统"
+      },
+      {
+        "id": 2,
+        "deviceTypes": "控制系统"
+      },
+      {
+        "id": 3,
+        "deviceTypes": "水系统"
+      },
+      {
+        "id": 4,
+        "deviceTypes": "电气系统"
+      },
+      {
+        "id": 5,
+        "deviceTypes": "灭火系统"
+      },
+      {
+        "id": 6,
+        "deviceTypes": "视频系统"
+      },
+      {
+        "id": 7,
+        "deviceTypes": "巡更系统"
+      },
+      {
+        "id": 8,
+        "deviceTypes": "电源监控系统"
+      },
+      {
+        "id": 9,
+        "deviceTypes": "通道系统"
+      }
+    ],
+    "success": true,
+    "errorCode": 0,
+    "errorMessage": null,
+    "object": null
+  }
+}

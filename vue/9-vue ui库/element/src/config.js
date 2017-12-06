@@ -28,5 +28,15 @@ export default {
     // mapPhoneIcon:_baseUrl+'/static/img/map1-phone.png',
     // mapUserorgIcon:_baseUrl+'/static/img/map1-userorg.png',
     // mapInfoIcon:_baseUrl+'/static/img/info.png',
+  },
+  fire:{
+    getSociety:'/static/store/getSociety.json',
+    getUserorg:'/static/store/getUserorg.json',
+    getDeviceType:'/static/store/getDeviceType.json',
+    getDeviceSubType:'/static/store/getDeviceSubType.json',
+    findBuildingInfo:'/static/store/findBuildingInfo.json',
+    findDealWithUsername:'/static/store/findDealWithUsername.json',
+    findCloseUsername:'/static/store/findCloseUsername.json',
+    findDeviceFireCasePage:'/static/store/findDeviceFireCasePage.json'
   }
 }

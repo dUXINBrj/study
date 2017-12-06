@@ -36,6 +36,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.css'
 import './assets/css/animate.css'
 import config from './config.js'
+import Bus from './bus.js'
 
 import routes from './router.config.js'
 
@@ -47,6 +48,7 @@ Vue.prototype.$lib = config;
 axios.defaults.baseURL=config.baseUrl;
 Vue.prototype.$http = axios;
 Vue.prototype.$msg=Message;
+window.Event=Bus;
 
 
 Vue.use(Loading);
