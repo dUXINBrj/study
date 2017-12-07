@@ -206,6 +206,7 @@
         creatInfoWindow(index){
           let buildingCase=this.buildingData[index].building_case_status;
           let offlineStatu=this.buildingData[index].online_status;
+          let firecaseid=this.buildingData[index].device_fire_case_id
           let buildingStatu=this.getBuildingStatu(buildingCase,offlineStatu);
           let _this=this;
           let root=this.buildingData[index];
@@ -238,7 +239,7 @@
               <div style='text-align:center;margin-top:20px;border-top:1px solid #ccc';padding:10px>
 				        <div style='margin-right:10px;border-right:1px solid #ccc;padding-right:35px;margin-left:60px;margin-top:10px;float:left'>
 				        <div style='height:14px;width:14px;margin-top:3px;float:left;margin-right:5px;background-image:url(../../../static/img/deal.png)'></div>
-				        <div style='float:left'>处理</div>
+				        <div style='float:left' onclick="fireClick(${firecaseid})">处理</div>
               </div>
               <div style='margin-top:10px;margin-left:30px;float:left'>
 				        <div style='height:14px;width:14px;float:left;margin-top:3px;margin-right:5px;background-image:url(../../../static/img/info.png)'></div>
@@ -398,6 +399,15 @@
           return obj;
         }
       }
+    }
+    window.fireClick=function(caseId){
+      console.log(caseId);
+      vm.$router.push({
+        path:'/index/fire',
+        query: {
+          caseid: caseId
+        }
+      });
     }
 </script>
 

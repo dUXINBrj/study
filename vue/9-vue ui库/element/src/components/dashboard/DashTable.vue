@@ -57,7 +57,16 @@
         },
         methods:{
             handleEdit(index,row){
-                console.log(row);
+                let _this=this;
+                switch (row.casetype){
+                  case '火警':_this.$router.push({
+                                path:'/index/fire',
+                                query: {
+                                  caseid: row.caseid
+                                }
+                              });break;
+                  default:break;
+                }
             }
         },
         watch:{

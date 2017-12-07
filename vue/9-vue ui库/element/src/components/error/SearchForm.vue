@@ -2,8 +2,8 @@
   <div class="searchContent">
     <el-row :gutter="20">
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请输入火警编号" placement="bottom">
-        <el-input placeholder="请输入火警编号" v-model="searchData.data.firecaseid"></el-input>
+        <el-tooltip class="item" effect="dark" content="请输入故障编号" placement="bottom">
+        <el-input placeholder="请输入故障编号" v-model="searchData.data.firecaseid"></el-input>
         </el-tooltip>
       </el-col>
       <el-col :span="5">
@@ -17,10 +17,10 @@
         </el-tooltip>
       </el-col>
       <el-col :span="4">
-        <el-tooltip class="item" effect="dark" content="请选择处理状态" placement="bottom">
-        <el-select v-model="searchData.data.firecasestatus" clearable placeholder="请选择处理状态">
+        <el-tooltip class="item" effect="dark" content="请选择故障类型" placement="bottom">
+        <el-select v-model="searchData.data.errorcasetype" clearable placeholder="请选择故障类型">
           <el-option
-            v-for="item in firecasestatusOption"
+            v-for="item in errorcasetypeOption"
             :key="item.value"
             :label="item.label"
             :value="item.value">
@@ -124,10 +124,10 @@
         </el-tooltip>
       </el-col>
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择处理人" placement="bottom">
-        <el-select v-model="searchData.data.dealwithuserid" clearable placeholder="请选择处理人">
+        <el-tooltip class="item" effect="dark" content="请选择有效状态" placement="bottom">
+        <el-select v-model="searchData.data.errorcasestatus" clearable placeholder="请选择有效状态">
           <el-option
-            v-for="item in dealwithuseridOption"
+            v-for="item in errorcasestatusOption"
             :key="item.userid"
             :label="item.useraccount"
             :value="item.userid">
@@ -192,16 +192,20 @@ export default {
       devicesubtypeidOption:[],
       buildingidOption:[],
       dealwithuseridOption:[],
-      closeuseridOption:[],
-      firecasestatusOption:[{
-        value:2,
-        label:'待处理'
-      },{
-        value:3,
-        label:'待关闭'
-      },{
-        value:4,
+      errorcasestatusOption:[{
+        value:0,
         label:'全部'
+      },{
+        value:1,
+        label:'启用'
+      }],
+      closeuseridOption:[],
+      errorcasetypeOption:[{
+        value:1,
+        label:'设备故障'
+      },{
+        value:2,
+        label:'主机故障'
       }],
       isteststatusOption:[{
         value:-1,

@@ -143,7 +143,7 @@
       return{
         dialogVisible:false,
         devicefirecaseid:'',
-        dealFireWin:true,
+        dealFireWin:false,
         isrealfire:"1",
         dealFireCaseId:'',
         textarea:''

@@ -1,10 +1,9 @@
 <template>
-  <div id="fireTableNow">
+  <div>
     <el-table
       :data="tableData"
       border
       style="width: 100%"
-      :row-class-name="tableRowClassName"
     @row-click="alertWindow">
       <el-table-column
         fixed
@@ -76,6 +75,23 @@
         width="120">
       </el-table-column>
       <el-table-column
+        prop="caseclosetime"
+        :formatter="caseclosetime"
+        label="关闭时间"
+        width="120">
+      </el-table-column>
+      <el-table-column
+        prop="closeusername"
+        label="关闭人"
+        width="120">
+      </el-table-column>
+      <el-table-column
+        prop="isrealfire"
+        :formatter="isrealfire"
+        label="实警/误报"
+        width="120">
+      </el-table-column>
+      <el-table-column
         prop="firerealtimestatus"
         :formatter="realtimeStatus"
         label="上报状态"
@@ -92,15 +108,6 @@
         label="备注"
         width="120">
       </el-table-column>
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="100">
-        <template slot-scope="scope">
-          <el-button type="text" @click.stop="dealFire(scope.row)" v-show="scope.row.firecasestatus!=0" size="small">处理</el-button>
-          <el-button @click.stop="handleClick(scope.row)" type="text" size="small">查看</el-button>
-        </template>
-      </el-table-column>
     </el-table>
     <el-dialog
       title="详细信息"
@@ -109,29 +116,6 @@
       <p>火警编号：{{devicefirecaseid}}</p>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">关 闭</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="处理火警"
-      :visible.sync="dealFireWin"
-      width="30%">
-      <p style="text-align: center">
-        <el-radio v-model="isrealfire" label="1">实警</el-radio>
-        <el-radio v-model="isrealfire" label="0">误报</el-radio>
-      </p>
-      <p><i class="red">*</i>说明(300字以内)：</p>
-      <p>
-        <el-input
-          type="textarea"
-          :rows="4"
-          :maxlength=300
-          placeholder="请输入内容"
-          v-model="textarea">
-        </el-input>
-      </p>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitDealFire">提 交</el-button>
-        <el-button @click="closeDealFireWin">关 闭</el-button>
       </span>
     </el-dialog>
   </div>
@@ -143,25 +127,21 @@
       return{
         dialogVisible:false,
         devicefirecaseid:'',
-        dealFireWin:true,
-        isrealfire:"1",
-        dealFireCaseId:'',
-        textarea:''
       }
     },
     methods: {
-      tableRowClassName({row, rowIndex}){
-        if(row.firecasestatus!=0){
-          return 'fire-red'
-        }
-      },
-      time(val){
-        let newDate=new Date(val.casebegintime);
+      time(row){
+        let newDate=new Date(row.casebegintime);
         let d=newDate.format('yyyy-MM-dd');
         return d;
       },
-      DealTime(val){
-        let newDate=new Date(val.casedealwithtime);
+      DealTime(row){
+        let newDate=new Date(row.casedealwithtime);
+        let d=newDate.format('yyyy-MM-dd');
+        return d;
+      },
+      caseclosetime(row){
+        let newDate=new Date(row.caseclosetime);
         let d=newDate.format('yyyy-MM-dd');
         return d;
       },
@@ -183,6 +163,14 @@
           return '未恢复';
         }
       },
+      isrealfire(row){
+        let statu=row.isrealfire;
+        if(statu==0){
+          return '误报';
+        }else if(statu==1){
+          return '实警';
+        }
+      },
       teststatus(row){
         let statu=row.isteststatus;
         if(statu==0){
@@ -194,39 +182,10 @@
       alertWindow(row, event, column){
         this.devicefirecaseid=row.devicefirecaseid;
         this.dialogVisible=true;
-      },
-      handleClick(scope) {
-        console.log(row);
-      },
-      dealFire(scope){
-        this.dealFireCaseId=scope.devicefirecaseid
-        this.dealFireWin=true;
-      },
-      submitDealFire(){
-        if(this.textarea==''){
-          this.$msg({
-            message: '请输入说明',
-            type: 'warning'
-          });
-          return false;
-        }
-        this.dealFireWin=false;
-        this.isrealfire="1";
-        this.dealFireCaseId='';
-        this.textarea='';
-      },
-      closeDealFireWin(){
-        this.dealFireWin=false;
-        this.isrealfire="1";
-        this.dealFireCaseId='';
-        this.textarea='';
       }
     }
   }
 </script>
 <style scoped>
-.red{
-  font-style: normal;
-  color: red;
-}
+
 </style>

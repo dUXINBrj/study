@@ -1,6 +1,6 @@
 {
   "WSListReturn": {
-    "totalProperty": 1,
+    "totalProperty": 50,
     "root": [
       {
         "devicefirecaseid": 209,
@@ -29,9 +29,9 @@
         "buildingname": "543",
         "housename": "543",
         "buidingids": null,
-        "caseclosetime": null,
+        "caseclosetime": 1511315843002,
         "closeuserid": null,
-        "closeusername": null,
+        "closeusername":"关闭人",
         "userorgid": 139,
         "userorgname": "sqai_01_社会 二为人妻为人 31232131244",
         "fireserviceorgid": 157,
@@ -40,7 +40,7 @@
         "operateorgname": "sqai_01",
         "isteststatus": 0,
         "status": null,
-        "isrealfire": null,
+        "isrealfire": 1,
         "time_type": null,
         "casebegintime_end": null,
         "device_list_type": null,

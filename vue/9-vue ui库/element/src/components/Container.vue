@@ -41,7 +41,7 @@ import TopNav from './top/TopNav.vue'
       username(){
           let username = localStorage.getItem('ms_username');
            if(!username){
-             this.$router.replace('/login');
+//             this.$router.replace('/login');
            }else{
              this.name=username
            }
@@ -52,7 +52,7 @@ import TopNav from './top/TopNav.vue'
       handleCommand(command) {
           if(command == 'loginout'){
               localStorage.removeItem('ms_username')
-              this.$router.replace('/login');
+//              this.$router.replace('/login');
           }
       }
     },
