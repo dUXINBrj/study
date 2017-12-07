@@ -128,9 +128,9 @@
         <el-select v-model="searchData.data.errorcasestatus" clearable placeholder="请选择有效状态">
           <el-option
             v-for="item in errorcasestatusOption"
-            :key="item.userid"
-            :label="item.useraccount"
-            :value="item.userid">
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
           </el-option>
         </el-select>
         </el-tooltip>
