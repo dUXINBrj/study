@@ -65,6 +65,12 @@
                                   caseid: row.caseid
                                 }
                               });break;
+                  case '故障':_this.$router.push({
+                    path:'/index/error',
+                    query: {
+                      caseid: row.caseid
+                    }
+                  });break;
                   default:break;
                 }
             }

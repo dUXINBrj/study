@@ -38,5 +38,8 @@ export default {
     findDealWithUsername:'/static/store/findDealWithUsername.json',
     findCloseUsername:'/static/store/findCloseUsername.json',
     findDeviceFireCasePage:'/static/store/findDeviceFireCasePage.json'
+  },
+  error:{
+    findErrorCase:'/static/store/finderrorcase.json'
   }
 }

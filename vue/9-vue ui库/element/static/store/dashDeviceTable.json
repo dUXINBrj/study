@@ -13,6 +13,15 @@
             "casetype": "火警",
             "housename": "543",
             "floorno": 1
+        },{
+          "devicename": "故障测试",
+          "subtypename": "消防电气控制装置",
+          "devicecode": "1231651654651651651616",
+          "buildingid": 2487,
+          "caseid": 20529,
+          "casetype": "故障",
+          "housename": "543",
+          "floorno": 1
         }],
         "s": null,
         "webSocketMap": null,

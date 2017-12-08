@@ -32,7 +32,8 @@ import {
     Tooltip,
     Pagination,
     Dialog,
-    Radio
+    Radio,
+    MessageBox
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/common.css'
@@ -50,6 +51,7 @@ Vue.prototype.$lib = config;
 axios.defaults.baseURL=config.baseUrl;
 Vue.prototype.$http = axios;
 Vue.prototype.$msg=Message;
+Vue.prototype.$MessageBox=MessageBox;
 window.Event=Bus;
 
 
@@ -81,6 +83,12 @@ Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(Radio);
 
+
+Vue.filter('date',function (val) {
+  let newDate=new Date(val);
+  let d=newDate.format('yyyy-MM-dd');
+  return d;
+});
 const router = new vueRouter({ routes });
 
  window.vm = new Vue({

@@ -111,9 +111,9 @@ a {
   /*background: #fdc2cf;*/
   color:RGB(255, 69, 0);
 }
-#fireTableNow .el-dialog__body{
+#fireTableNow .el-dialog__body,#fireTableHistory .el-dialog__body{
   padding: 10px 20px;
 }
-#fireTableNow .el-dialog__title{
+#fireTableNow .el-dialog__title,#fireTableHistory .el-dialog__title{
   font-size: 18px;
 }

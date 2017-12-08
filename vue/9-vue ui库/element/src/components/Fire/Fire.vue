@@ -130,13 +130,19 @@
           });
       },
       handleSizeChange(val) {
-        this.currentPageNow=1;
         this.searchData.data.limit=val;
-        this.search();
+        if(this.searchData.data.currentPageNow==1){
+          this.search();
+        }else{
+          this.searchData.data.currentPageNow=1;
+        }
       },
       handleCurrentChange(val) {
-        this.searchData.data.currentPageNow=val;
-        this.search();
+        if(this.searchData.data.currentPageNow==val){
+          this.search();
+        }else{
+          this.searchData.data.currentPageNow=val;
+        }
       }
     }
   }

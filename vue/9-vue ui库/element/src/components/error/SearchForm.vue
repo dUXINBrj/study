@@ -2,21 +2,6 @@
   <div class="searchContent">
     <el-row :gutter="20">
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请输入故障编号" placement="bottom">
-        <el-input placeholder="请输入故障编号" v-model="searchData.data.firecaseid"></el-input>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请输入设备编码" placement="bottom">
-        <el-input placeholder="请输入设备编码" v-model="searchData.data.devicecode"></el-input>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请输入设备名称" placement="bottom">
-        <el-input placeholder="请输入设备名称" v-model="searchData.data.devicename"></el-input>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="4">
         <el-tooltip class="item" effect="dark" content="请选择故障类型" placement="bottom">
         <el-select v-model="searchData.data.errorcasetype" clearable placeholder="请选择故障类型">
           <el-option
@@ -26,6 +11,42 @@
             :value="item.value">
           </el-option>
         </el-select>
+        </el-tooltip>
+      </el-col>
+      <el-col :span="5">
+        <el-tooltip class="item" effect="dark" content="请选择建筑物" placement="bottom">
+          <el-select v-model="searchData.data.buildingid" filterable clearable placeholder="请选择建筑物">
+            <el-option
+              v-for="item in buildingidOption"
+              :key="item.buildingid"
+              :label="item.buildingname"
+              :value="item.buildingid">
+            </el-option>
+          </el-select>
+        </el-tooltip>
+      </el-col>
+      <el-col :span="4">
+        <el-tooltip class="item" effect="dark" content="请选择模式" placement="bottom">
+          <el-select v-model="searchData.data.isteststatus" clearable placeholder="请选择模式">
+            <el-option
+              v-for="item in isteststatusOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-tooltip>
+      </el-col>
+      <el-col :span="5">
+        <el-tooltip class="item" effect="dark" content="请选择设备系统" placement="bottom">
+          <el-select v-model="searchData.data.devicetypeid" clearable placeholder="请选择设备系统">
+            <el-option
+              v-for="item in devicetypeidOption"
+              :key="item.id"
+              :label="item.deviceTypes"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-tooltip>
       </el-col>
       <el-col :span="3">
@@ -38,30 +59,23 @@
     </el-row>
     <el-row :gutter="20" v-show="showMore">
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择设备系统" placement="bottom">
-        <el-select v-model="searchData.data.devicetypeid" clearable placeholder="请选择设备系统">
-          <el-option
-            v-for="item in devicetypeidOption"
-            :key="item.id"
-            :label="item.deviceTypes"
-            :value="item.id">
-          </el-option>
-        </el-select>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请选择设备类别" placement="bottom">
-        <el-select v-model="searchData.data.devicesubtypeid" :disabled="typeDisabled" clearable placeholder="请选择设备类别">
-          <el-option
-            v-for="item in devicesubtypeidOption"
-            :key="item.devicesubtypeid"
-            :label="item.subtypename"
-            :value="item.devicesubtypeid">
-          </el-option>
-        </el-select>
+          <el-select v-model="searchData.data.devicesubtypeid" :disabled="typeDisabled" clearable placeholder="请选择设备类别">
+            <el-option
+              v-for="item in devicesubtypeidOption"
+              :key="item.devicesubtypeid"
+              :label="item.subtypename"
+              :value="item.devicesubtypeid">
+            </el-option>
+          </el-select>
         </el-tooltip>
       </el-col>
       <el-col :span="5">
+        <el-tooltip class="item" effect="dark" content="请输入故障编号" placement="bottom">
+          <el-input placeholder="请输入故障编号" v-model="searchData.data.errorcaseid"></el-input>
+        </el-tooltip>
+      </el-col>
+      <el-col :span="4">
         <el-tooltip class="item" effect="dark" content="请选择服务单位" placement="bottom">
         <el-select v-model="searchData.data.fireserviceorgid" clearable placeholder="请选择服务单位">
           <el-option
@@ -73,7 +87,7 @@
         </el-select>
         </el-tooltip>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请选择社会单位" placement="bottom">
         <el-select v-model="searchData.data.userorgid" :disabled="userorgDisabled" clearable placeholder="请选择社会单位">
           <el-option
@@ -85,23 +99,22 @@
         </el-select>
         </el-tooltip>
       </el-col>
+
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择建筑物" placement="bottom">
-        <el-select v-model="searchData.data.buildingid" filterable clearable placeholder="请选择建筑物">
-          <el-option
-            v-for="item in buildingidOption"
-            :key="item.buildingid"
-            :label="item.buildingname"
-            :value="item.buildingid">
-          </el-option>
-        </el-select>
+        <el-tooltip class="item" effect="dark" content="请输入设备编码" placement="bottom">
+          <el-input placeholder="请输入设备编码" v-model="searchData.data.devicecode"></el-input>
         </el-tooltip>
       </el-col>
     </el-row>
     <el-row :gutter="20" v-show="showMore">
       <el-col :span="5">
+        <el-tooltip class="item" effect="dark" content="请输入设备名称" placement="bottom">
+          <el-input placeholder="请输入设备名称" v-model="searchData.data.errordevicename"></el-input>
+        </el-tooltip>
+      </el-col>
+      <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请选择上报状态" placement="bottom">
-        <el-select v-model="searchData.data.firerealtimestatus" clearable placeholder="请选择上报状态">
+        <el-select v-model="searchData.data.errorrealtimestatus" clearable placeholder="请选择上报状态">
           <el-option
             v-for="item in firerealtimestatusOption"
             :key="item.value"
@@ -111,23 +124,11 @@
         </el-select>
         </el-tooltip>
       </el-col>
-      <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择模式" placement="bottom">
-        <el-select v-model="searchData.data.isteststatus" clearable placeholder="请选择模式">
-          <el-option
-            v-for="item in isteststatusOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="5">
+      <el-col :span="4">
         <el-tooltip class="item" effect="dark" content="请选择有效状态" placement="bottom">
-        <el-select v-model="searchData.data.errorcasestatus" clearable placeholder="请选择有效状态">
+        <el-select v-model="searchData.data.effective_status" clearable placeholder="请选择有效状态">
           <el-option
-            v-for="item in errorcasestatusOption"
+            v-for="item in effective_statusOption"
             :key="item.value"
             :label="item.label"
             :value="item.value">
@@ -135,7 +136,7 @@
         </el-select>
         </el-tooltip>
       </el-col>
-      <el-col :span="9">
+      <el-col :span="10">
         <el-tooltip class="item" effect="dark" content="请选择日期" placement="bottom">
         <el-date-picker
           v-model="casebegintime"
@@ -153,9 +154,9 @@
     <el-row :gutter="20" v-show="showMore">
       <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请选择关闭人" placement="bottom">
-        <el-select v-model="searchData.data.closeuserid" v-show="mode=='history'" clearable placeholder="请选择关闭人">
+        <el-select v-model="searchData.data.dealwithuserid" v-show="mode=='history'" clearable placeholder="请选择关闭人">
           <el-option
-            v-for="item in closeuseridOption"
+            v-for="item in dealwithuseridOption"
             :key="item.userid"
             :label="item.useraccount"
             :value="item.userid">
@@ -164,16 +165,7 @@
         </el-tooltip>
       </el-col>
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择实警/误报" placement="bottom">
-        <el-select v-model="searchData.data.isrealfire" v-show="mode=='history'" clearable placeholder="请选择实警/误报">
-          <el-option
-            v-for="item in isrealfireOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-        </el-tooltip>
+
       </el-col>
     </el-row>
   </div>
@@ -192,14 +184,14 @@ export default {
       devicesubtypeidOption:[],
       buildingidOption:[],
       dealwithuseridOption:[],
-      errorcasestatusOption:[{
+      effective_statusOption:[{
         value:0,
         label:'全部'
       },{
         value:1,
         label:'启用'
       }],
-      closeuseridOption:[],
+      dealwithuseridOption:[],
       errorcasetypeOption:[{
         value:1,
         label:'设备故障'
@@ -226,16 +218,6 @@ export default {
       },{
         value:0,
         label:'已恢复'
-      }],
-      isrealfireOption:[{
-        value:-1,
-        label:'全部'
-      },{
-        value:0,
-        label:'误报'
-      },{
-        value:1,
-        label:'实警'
       }],
       pickerOptions2: {
         shortcuts: [{
@@ -310,24 +292,23 @@ export default {
       }
     },
     reset(){
-      this.searchData.data.firecaseid='';
+      this.searchData.data.errorcaseid='';
       this.searchData.data.devicecode='';
-      this.searchData.data.devicename='';
-      this.searchData.data.firecasestatus='';
+      this.searchData.data.errordevicename='';
+      this.searchData.data.errorcasetype='';
+      this.searchData.data.devicetypeid='';
+      this.searchData.data.devicesubtypeid='';
       this.searchData.data.fireserviceorgid='';
       this.searchData.data.userorgid='';
       this.searchData.data.buildingid='';
-      this.searchData.data.isteststatus='';
+      this.searchData.data.errorrealtimestatus='';
       this.searchData.data.dealwithuserid='';
-      this.searchData.data.closeuserid='';
-      this.searchData.data.casebegintime=null;
-      this.searchData.data.devicetypeid='';
-      this.searchData.data.devicesubtypeid='';
-      this.searchData.data.firerealtimestatus='';
-      this.searchData.data.isrealfire='';
+      this.searchData.data.isteststatus='';
+      this.searchData.data.effective_status='';
       this.searchData.data.casebegintime='';
       this.searchData.data.casebegintimeend='';
       this.searchData.data.currentPageNow=1;
+      this.casebegintime=null;
     },
     getUserorg(){
       let _this=this;
@@ -446,7 +427,7 @@ export default {
             return false;
           }
           let root=res.data.WSListReturn.root;
-          _this.closeuseridOption=root;
+          _this.dealwithuseridOption=root;
         })
         .catch(function(err){
           _this.$msg({
@@ -497,7 +478,6 @@ export default {
     mode(val){
       if(val=='now'){
         this.searchData.data.closeuserid='';
-        this.searchData.data.isrealfire='';
       }else{
         this.findCloseUsername();
       }

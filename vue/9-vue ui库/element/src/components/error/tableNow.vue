@@ -4,134 +4,62 @@
       :data="tableData"
       border
       style="width: 100%"
-      :row-class-name="tableRowClassName"
     @row-click="alertWindow">
       <el-table-column
         fixed
-        prop="devicefirecaseid"
-        label="火警编号"
-        width="150">
+        prop="errorcaseid"
+        label="故障编号">
+      </el-table-column>
+      <el-table-column
+        prop="buildingname"
+        label="所属建筑">
       </el-table-column>
       <el-table-column
         prop="casebegintime"
         :formatter="time"
-        label="火警发生时间"
-        width="120">
+        label="故障发生时间">
       </el-table-column>
       <el-table-column
-        prop="devicecode"
-        label="设备编码"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="devicetype_name"
-        label="设备系统"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="devicesubtype_name"
-        label="设备类别"
-        width="300">
-      </el-table-column>
-      <el-table-column
-        prop="devicename"
-        label="设备名称"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="buildingname"
-        label="所属建筑"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="fireserviceorgname"
-        label="设备名称"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="userorgname"
-        label="所属服务单位"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="userorgname"
-        label="所属社会单位"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="casedealwithtime"
-        :formatter="DealTime"
-        label="处理时间"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="firecasestatus"
-        :formatter="caseStatus"
-        label="处理状态"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="dealwithusername"
-        label="处理人"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="firerealtimestatus"
+        prop="errorrealtimestatus"
         :formatter="realtimeStatus"
-        label="上报状态"
-        width="120">
+        label="上报状态">
       </el-table-column>
       <el-table-column
         prop="isteststatus"
         :formatter="teststatus"
-        label="模式"
-        width="120">
+        label="模式">
       </el-table-column>
       <el-table-column
-        prop="firedesc"
-        label="备注"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="100">
+        label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click.stop="dealFire(scope.row)" v-show="scope.row.firecasestatus!=0" size="small">处理</el-button>
-          <el-button @click.stop="handleClick(scope.row)" type="text" size="small">查看</el-button>
+          <el-button
+            type="text"
+            @click.stop="closeError(scope.row)"
+            v-show="scope.row.errorcasestatus==1 && scope.row.errorrealtimestatus==0"
+            size="small">关闭</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog
       title="详细信息"
       :visible.sync="dialogVisible"
-      width="30%">
-      <p>火警编号：{{devicefirecaseid}}</p>
+      width="50%">
+      <p>故障编号：{{detailData.errorcaseid}}</p>
+      <p>故障类型：{{detailData.errorcasetype | errorcasetype}}</p>
+      <p>设备编码：{{detailData.devicecode}}</p>
+      <p>设备系统：{{detailData.devicetype_name}}</p>
+      <p>设备类别：{{detailData.devicesubtypename}}</p>
+      <p>设备名称：{{detailData.errordevicename}}</p>
+      <p>所属建筑：{{detailData.buildingname}}</p>
+      <p>社会单位：{{detailData.fireserviceorgname}}</p>
+      <p>服务单位：{{detailData.userorgname}}</p>
+      <p>模式：{{detailData.isteststatus | isteststatus}}</p>
+      <p>故障发生时间：{{detailData.casebegintime | date}}</p>
+      <p>当前上报状态：{{detailData.errorrealtimestatus | errorrealtimestatus}}</p>
+      <p>故障状态：{{detailData.errorcasestatus | errorcasestatus}}</p>
+      <p>模式：{{detailData.isteststatus | isteststatus}}</p>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">关 闭</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="处理火警"
-      :visible.sync="dealFireWin"
-      width="30%">
-      <p style="text-align: center">
-        <el-radio v-model="isrealfire" label="1">实警</el-radio>
-        <el-radio v-model="isrealfire" label="0">误报</el-radio>
-      </p>
-      <p><i class="red">*</i>说明(300字以内)：</p>
-      <p>
-        <el-input
-          type="textarea"
-          :rows="4"
-          :maxlength=300
-          placeholder="请输入内容"
-          v-model="textarea">
-        </el-input>
-      </p>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitDealFire">提 交</el-button>
-        <el-button @click="closeDealFireWin">关 闭</el-button>
       </span>
     </el-dialog>
   </div>
@@ -142,44 +70,53 @@
     data(){
       return{
         dialogVisible:false,
-        devicefirecaseid:'',
-        dealFireWin:false,
-        isrealfire:"1",
-        dealFireCaseId:'',
-        textarea:''
+        detailData:'',
+        CloseCaseId:'',
+      }
+    },
+    filters:{
+      errorcasestatus(val){
+        if(val==0){
+          return '关闭';
+        } else if(val==1){
+          return '开启';
+        } else if(val==null){
+          return ' ';
+        }
+      },
+      errorcasetype(val){
+        if(val==1){
+          return '设备故障';
+        } else if(val==2){
+          return '主机故障';
+        }
+      },
+      errorrealtimestatus(statu){
+        if(statu==0){
+          return '已恢复';
+        }else if(statu==1){
+          return '未恢复';
+        }
+      },
+      isteststatus(statu){
+        if(statu==0){
+          return '监管模式';
+        }else if(statu==1){
+          return '测试模式';
+        }
       }
     },
     methods: {
-      tableRowClassName({row, rowIndex}){
-        if(row.firecasestatus!=0){
-          return 'fire-red'
-        }
-      },
       time(val){
         let newDate=new Date(val.casebegintime);
         let d=newDate.format('yyyy-MM-dd');
         return d;
       },
-      DealTime(val){
-        let newDate=new Date(val.casedealwithtime);
-        let d=newDate.format('yyyy-MM-dd');
-        return d;
-      },
-      caseStatus(row,column){
-        let statu=row.firecasestatus;
-        if(statu==0){
-          return '已完成';
-        } else if(statu==2){
-          return '待处理';
-        } else if(statu==3){
-          return '待关闭';
-        }
-      },
       realtimeStatus(row){
-        let statu=row.firerealtimestatus;
+        let statu=row.errorrealtimestatus;
         if(statu==0){
           return '已恢复';
-        }else if(statu==2){
+        }else if(statu==1){
           return '未恢复';
         }
       },
@@ -191,36 +128,36 @@
           return '测试模式';
         }
       },
+      errorcasestatus(row){
+        let statu=row.errorcasestatus;
+        if(statu==0){
+          return '关闭';
+        }else if(statu==1){
+          return '开启';
+        }
+      },
       alertWindow(row, event, column){
-        this.devicefirecaseid=row.devicefirecaseid;
+        this.detailData=row;
         this.dialogVisible=true;
       },
-      handleClick(scope) {
-        console.log(row);
-      },
-      dealFire(scope){
-        this.dealFireCaseId=scope.devicefirecaseid
-        this.dealFireWin=true;
-      },
-      submitDealFire(){
-        if(this.textarea==''){
+      closeError(scope){
+        this.CloseCaseId=scope.errorcaseid;
+        this.$MessageBox.confirm ('确认关闭故障?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
           this.$msg({
-            message: '请输入说明',
-            type: 'warning'
+            type: 'success',
+            message: '已关闭!'
           });
-          return false;
-        }
-        this.dealFireWin=false;
-        this.isrealfire="1";
-        this.dealFireCaseId='';
-        this.textarea='';
+        }).catch(() => {
+          this.$msg({
+            type: 'info',
+            message: '已取消'
+          });
+        });
       },
-      closeDealFireWin(){
-        this.dealFireWin=false;
-        this.isrealfire="1";
-        this.dealFireCaseId='';
-        this.textarea='';
-      }
     }
   }
 </script>

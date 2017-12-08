@@ -7,25 +7,39 @@
         </el-tooltip>
       </el-col>
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请输入设备编码" placement="bottom">
-        <el-input placeholder="请输入设备编码" v-model="searchData.data.devicecode"></el-input>
+        <el-tooltip class="item" effect="dark" content="请选择建筑物" placement="bottom">
+          <el-select v-model="searchData.data.buildingid" filterable clearable placeholder="请选择建筑物">
+            <el-option
+              v-for="item in buildingidOption"
+              :key="item.buildingid"
+              :label="item.buildingname"
+              :value="item.buildingid">
+            </el-option>
+          </el-select>
         </el-tooltip>
       </el-col>
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请输入设备名称" placement="bottom">
-        <el-input placeholder="请输入设备名称" v-model="searchData.data.devicename"></el-input>
+        <el-tooltip class="item" effect="dark" content="请选择模式" placement="bottom">
+          <el-select v-model="searchData.data.isteststatus" clearable placeholder="请选择模式">
+            <el-option
+              v-for="item in isteststatusOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-tooltip>
       </el-col>
       <el-col :span="4">
-        <el-tooltip class="item" effect="dark" content="请选择处理状态" placement="bottom">
-        <el-select v-model="searchData.data.firecasestatus" clearable placeholder="请选择处理状态">
-          <el-option
-            v-for="item in firecasestatusOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <el-tooltip class="item" effect="dark" content="请选择设备系统" placement="bottom">
+          <el-select v-model="searchData.data.devicetypeid" clearable placeholder="请选择设备系统">
+            <el-option
+              v-for="item in devicetypeidOption"
+              :key="item.id"
+              :label="item.deviceTypes"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-tooltip>
       </el-col>
       <el-col :span="3">
@@ -38,18 +52,6 @@
     </el-row>
     <el-row :gutter="20" v-show="showMore">
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择设备系统" placement="bottom">
-        <el-select v-model="searchData.data.devicetypeid" clearable placeholder="请选择设备系统">
-          <el-option
-            v-for="item in devicetypeidOption"
-            :key="item.id"
-            :label="item.deviceTypes"
-            :value="item.id">
-          </el-option>
-        </el-select>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请选择设备类别" placement="bottom">
         <el-select v-model="searchData.data.devicesubtypeid" :disabled="typeDisabled" clearable placeholder="请选择设备类别">
           <el-option
@@ -59,6 +61,18 @@
             :value="item.devicesubtypeid">
           </el-option>
         </el-select>
+        </el-tooltip>
+      </el-col>
+      <el-col :span="5">
+        <el-tooltip class="item" effect="dark" content="请选择处理状态" placement="bottom">
+          <el-select v-model="searchData.data.firecasestatus" clearable placeholder="请选择处理状态">
+            <el-option
+              v-for="item in firecasestatusOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-tooltip>
       </el-col>
       <el-col :span="5">
@@ -86,41 +100,27 @@
         </el-tooltip>
       </el-col>
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择建筑物" placement="bottom">
-        <el-select v-model="searchData.data.buildingid" filterable clearable placeholder="请选择建筑物">
-          <el-option
-            v-for="item in buildingidOption"
-            :key="item.buildingid"
-            :label="item.buildingname"
-            :value="item.buildingid">
-          </el-option>
-        </el-select>
+        <el-tooltip class="item" effect="dark" content="请选择上报状态" placement="bottom">
+          <el-select v-model="searchData.data.firerealtimestatus" clearable placeholder="请选择上报状态">
+            <el-option
+              v-for="item in firerealtimestatusOption"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-tooltip>
       </el-col>
     </el-row>
     <el-row :gutter="20" v-show="showMore">
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择上报状态" placement="bottom">
-        <el-select v-model="searchData.data.firerealtimestatus" clearable placeholder="请选择上报状态">
-          <el-option
-            v-for="item in firerealtimestatusOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <el-tooltip class="item" effect="dark" content="请输入设备编码" placement="bottom">
+          <el-input placeholder="请输入设备编码" v-model="searchData.data.devicecode"></el-input>
         </el-tooltip>
       </el-col>
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择模式" placement="bottom">
-        <el-select v-model="searchData.data.isteststatus" clearable placeholder="请选择模式">
-          <el-option
-            v-for="item in isteststatusOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <el-tooltip class="item" effect="dark" content="请输入设备名称" placement="bottom">
+          <el-input placeholder="请输入设备名称" v-model="searchData.data.devicename"></el-input>
         </el-tooltip>
       </el-col>
       <el-col :span="5">
@@ -316,7 +316,6 @@ export default {
       this.searchData.data.isteststatus='';
       this.searchData.data.dealwithuserid='';
       this.searchData.data.closeuserid='';
-      this.searchData.data.casebegintime=null;
       this.searchData.data.devicetypeid='';
       this.searchData.data.devicesubtypeid='';
       this.searchData.data.firerealtimestatus='';
@@ -324,6 +323,7 @@ export default {
       this.searchData.data.casebegintime='';
       this.searchData.data.casebegintimeend='';
       this.searchData.data.currentPageNow=1;
+      this.casebegintime=null;
     },
     getUserorg(){
       let _this=this;

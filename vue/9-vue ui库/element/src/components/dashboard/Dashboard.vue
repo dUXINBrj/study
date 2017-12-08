@@ -218,11 +218,12 @@ export default {
   min-height: 200px;
 }
 .treeTool{
-  height: 10%;
+  /*height: 10%;*/
   min-height:40px;
+  margin: 10px;
 }
 .treeBox{
-  height: 90%;
-  overflow-y: auto;
+  /*height: 90%;*/
+  /*overflow-y: auto;*/
 }
 </style>

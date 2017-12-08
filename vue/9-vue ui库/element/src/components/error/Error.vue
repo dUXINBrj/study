@@ -46,22 +46,23 @@
         total:0,
         searchData:{
           data:{
-            firecaseid:'',
+            errorcaseid:'',
             devicecode:'',
-            devicename:'',
+            errordevicename:'',
             errorcasetype:'',
+            devicetypeid:'',
+            devicesubtypeid:'',
             fireserviceorgid:'',
             userorgid:'',
             buildingid:'',
+            errorrealtimestatus:'',
+            dealwithuserid:'',
             isteststatus:'',
-            errorcasestatus:'',
-            devicetypeid:'',
-            devicesubtypeid:'',
-            firerealtimestatus:'',
-            closeuserid:'',
-            isrealfire:'',
+            effective_status:'',//有效状态
+            errorcasestatus:'',//实时/历史
             casebegintime:'',
             casebegintimeend:'',
+            timestatus:5,
             limit:10,
             start:'',
             currentPageNow:1
@@ -73,7 +74,7 @@
     created: function () {
       if(this.$route.query.caseid){
         this.tableMode='history';
-        this.searchData.data.firecaseid=this.$route.query.caseid;
+        this.searchData.data.errorcaseid=this.$route.query.caseid;
       }
       Event.$on('search',function (val) {
         this.search();
@@ -100,14 +101,14 @@
       search(){
         this.isloading=true;
         if(this.tableMode=='now'){
-          this.searchData.data.device_list_type=0;
+          this.searchData.data.errorcasestatus=0;
         }else{
-          this.searchData.data.device_list_type=1;
+          this.searchData.data.errorcasestatus=1;
         }
         this.searchData.data.start=this.searchData.data.limit*(this.searchData.data.currentPageNow-1);
         let _this=this;
         console.log(this.searchData.data);
-        this.$http.get(_this.$lib.fire.findDeviceFireCasePage,_this.searchData.data)
+        this.$http.get(_this.$lib.error.findErrorCase,_this.searchData.data)
           .then(function(res){
             _this.isloading=false;
             if(res.data.WSListReturn.success==false){
@@ -130,13 +131,19 @@
           });
       },
       handleSizeChange(val) {
-        this.currentPageNow=1;
         this.searchData.data.limit=val;
-        this.search();
+        if(this.searchData.data.currentPageNow==1){
+          this.search();
+        }else{
+          this.searchData.data.currentPageNow=1;
+        }
       },
       handleCurrentChange(val) {
-        this.searchData.data.currentPageNow=val;
-        this.search();
+        if(this.searchData.data.currentPageNow==val){
+          this.search();
+        }else{
+          this.searchData.data.currentPageNow=val;
+        }
       }
     }
   }
