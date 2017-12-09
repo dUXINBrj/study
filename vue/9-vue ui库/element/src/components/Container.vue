@@ -3,13 +3,13 @@
 		  <div class="header">
         <el-row>
           <el-col :span="2">LOGO</el-col>
-          <el-col :span="20">
+          <el-col :span="18">
             <TopNav></TopNav>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="4">
             <el-dropdown trigger="click" @command="handleCommand">
               <div class="el-dropdown-link">
-                <span>您好 {{username}}</span>
+                <span class="username">您好 {{username}}</span>
                 <img class="header-icon" src="../assets/img/img.gif">
               </div>
               <el-dropdown-menu slot="dropdown">
@@ -97,7 +97,17 @@ import TopNav from './top/TopNav.vue'
   .header-icon{
     width: 40px;
     border-radius: 50%;
-    vertical-align: -18%;
     margin-left: 10px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 13px;
+  }
+  .username{
+    display: inline-block;
+    max-width: 180px;
+    height: 60px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
   }
 </style>

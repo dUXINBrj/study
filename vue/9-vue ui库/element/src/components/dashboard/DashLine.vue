@@ -109,9 +109,11 @@
                     },
                     series: [
                         {
-                            name:'',
-                            type:'line',
-                            data:[],
+                          name:'',
+                          type:'line',
+                          showAllSymbol:true,
+                          connectNulls:true,
+                          data:[],
                             itemStyle : {
                                     normal : {
                                         color:'#147dea',
@@ -160,18 +162,26 @@
                      });
                      obj.xAxis.data=xArr;
                      obj.series[0].data=seriesData;
-                     obj.series[0].markLine.data[0]=[{
-                       name:_this.echsrtsData[0].mainattribute_attributeminval,
-                       coord: [xArr[0], _this.echsrtsData[0].mainattribute_attributeminval]
-                     }, {
-                       coord: [xArr[xArr.length-1], _this.echsrtsData[0].mainattribute_attributeminval]
-                     }];
-                     obj.series[0].markLine.data[1]=[{
-                       name:_this.echsrtsData[0].mainattribute_attributemaxval,
-                       coord: [xArr[0], _this.echsrtsData[0].mainattribute_attributemaxval]
-                     }, {
-                       coord: [xArr[xArr.length-1], _this.echsrtsData[0].mainattribute_attributemaxval]
-                     }];
+                     if(_this.echsrtsData[0].mainattribute_attributeminval!=null){
+                       obj.series[0].markLine.data[0]=[{
+                         name:_this.echsrtsData[0].mainattribute_attributeminval,
+                         coord: [xArr[0], _this.echsrtsData[0].mainattribute_attributeminval]
+                       }, {
+                         coord: [xArr[xArr.length-1], _this.echsrtsData[0].mainattribute_attributeminval]
+                       }];
+                     }else{
+                       obj.series[0].markLine.data=[];
+                     }
+                     if(_this.echsrtsData[0].mainattribute_attributemaxval!=null){
+                       obj.series[0].markLine.data[1]=[{
+                         name:_this.echsrtsData[0].mainattribute_attributemaxval,
+                         coord: [xArr[0], _this.echsrtsData[0].mainattribute_attributemaxval]
+                       }, {
+                         coord: [xArr[xArr.length-1], _this.echsrtsData[0].mainattribute_attributemaxval]
+                       }];
+                     }else{
+                       obj.series[0].markLine.data=[];
+                     }
                      seriesData.push(_this.echsrtsData[0].mainattribute_attributemaxval);
                      seriesData.push(_this.echsrtsData[0].mainattribute_attributeminval);
                      let max=Math.max.apply(null, seriesData);

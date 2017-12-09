@@ -89,6 +89,11 @@ Vue.filter('date',function (val) {
   let d=newDate.format('yyyy-MM-dd');
   return d;
 });
+Vue.filter('time',function (val) {
+  let newDate=new Date(val);
+  let d=newDate.format('yyyy-MM-dd hh:mm:ss');
+  return d;
+});
 const router = new vueRouter({ routes });
 
  window.vm = new Vue({

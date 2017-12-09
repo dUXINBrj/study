@@ -291,10 +291,10 @@ export default {
     search(){
       if(this.casebegintime!=null){
         this.searchData.data.casebegintime=this.casebegintime[0];
-        this.searchData.data.casebegintimeend=this.casebegintime[1];
+        this.searchData.data.casebegintime_end=this.casebegintime[1];
       }else{
         this.searchData.data.casebegintime='';
-        this.searchData.data.casebegintimeend='';
+        this.searchData.data.casebegintime_end='';
       }
       //如果当前页为1则主动去触发搜索事件
       //不为1的情况下通过更改当前页 触发当前页更改事件 间接触发搜索
@@ -321,7 +321,8 @@ export default {
       this.searchData.data.firerealtimestatus='';
       this.searchData.data.isrealfire='';
       this.searchData.data.casebegintime='';
-      this.searchData.data.casebegintimeend='';
+      this.searchData.data.casebegintime_end='';
+      this.searchData.data.timestatus='';
       this.searchData.data.currentPageNow=1;
       this.casebegintime=null;
     },

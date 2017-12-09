@@ -1,0 +1,46 @@
+{
+  "WSListReturn": {
+    "totalProperty": 90,
+    "root": [
+      {
+        "devicewarningcaseid": 18,
+        "warningdeviceid": 5236921,
+        "devicecode": "6666688999999999999999",
+        "devicetypeid": 2,
+        "devicesubtypeid": 37,
+        "devicename": "20171110",
+        "warningdesc": null,
+        "devicedesc": "",
+        "buildingid": 2486,
+        "houseid": 3,
+        "floorid": 20411,
+        "casebegintime": 1512788142000,
+        "caseendtime": null,
+        "warningcasestatus": 7,
+        "isteststatus": 0,
+        "status": null,
+        "createtime": 1512788146000,
+        "updatetime": null,
+        "mainattribute": "dfdfads",
+        "buildingname": "sqai_test",
+        "housename": "sqai_test",
+        "floorname": "sqai_floor",
+        "operateorgid": 202,
+        "fireserviceorgid": 157,
+        "userorgid": 139,
+        "operateorgname": "sqai_01",
+        "fireserviceorgname": "sqai_01_服务 ddfdsa 41234134341",
+        "userorgname": "sqai_01_社会 二为人妻为人 31232131244",
+        "time_status": null,
+        "buildingIds": null,
+        "casebegintime_end": null,
+        "devicetype_name": "气体灭火系统",
+        "devicesubtype_name": "气体灭火控制器"
+      }
+    ],
+    "success": true,
+    "errorCode": 0,
+    "errorMessage": null,
+    "object": null
+  }
+}

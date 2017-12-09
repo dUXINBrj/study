@@ -22,6 +22,15 @@
           "casetype": "故障",
           "housename": "543",
           "floorno": 1
+        },{
+          "devicename": "告警测试",
+          "subtypename": "消防装置",
+          "devicecode": "1231651654651651651616",
+          "buildingid": 2487,
+          "caseid": 18,
+          "casetype": "告警",
+          "housename": "543",
+          "floorno": 1
         }],
         "s": null,
         "webSocketMap": null,

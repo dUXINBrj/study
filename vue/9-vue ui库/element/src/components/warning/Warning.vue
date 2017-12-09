@@ -46,22 +46,20 @@
         total:0,
         searchData:{
           data:{
-            firecaseid:'',
+            devicewarningcaseid:'',
             devicecode:'',
-            devicename:'',
-            firecasestatus:'',
-            fireserviceorgid:'',
-            userorgid:'',
-            buildingid:'',
-            isteststatus:'',
-            dealwithuserid:'',
             devicetypeid:'',
             devicesubtypeid:'',
-            firerealtimestatus:'',
-            closeuserid:'',
-            isrealfire:'',
+            warndevicename:'',
+            warn_mainattribute:'',
+            buildingid:'',
+            fireserviceorgid:'',
+            userorgid:'',
+            isteststatus:'',
+            warncasestatus:'',//实时/历史
             casebegintime:'',
-            casebegintime_end:'',
+            caseendtime:'',
+            timestatus:5,
             limit:10,
             start:'',
             currentPageNow:1
@@ -73,7 +71,7 @@
     created: function () {
       if(this.$route.query.caseid){
         this.tableMode='history';
-        this.searchData.data.firecaseid=this.$route.query.caseid;
+        this.searchData.data.devicewarningcaseid=this.$route.query.caseid;
       }
       Event.$on('search',function (val) {
         this.search();
@@ -99,20 +97,20 @@
       },
       search(){
         this.isloading=true;
-        if(this.searchData.data.casebegintime=='' && this.searchData.data.casebegintime_end==''){
+        if(this.searchData.data.casebegintime=='' && this.searchData.data.caseendtime==''){
           this.searchData.data.timestatus='';
         }else{
           this.searchData.data.timestatus=5;
         }
         if(this.tableMode=='now'){
-          this.searchData.data.device_list_type=0;
+          this.searchData.data.warncasestatus=7;
         }else{
-          this.searchData.data.device_list_type=1;
+          this.searchData.data.warncasestatus=0;
         }
         this.searchData.data.start=this.searchData.data.limit*(this.searchData.data.currentPageNow-1);
         let _this=this;
         console.log(this.searchData.data);
-        this.$http.get(_this.$lib.fire.findDeviceFireCasePage,_this.searchData.data)
+        this.$http.get(_this.$lib.warn.findDeviceWarningCase,_this.searchData.data)
           .then(function(res){
             _this.isloading=false;
             if(res.data.WSListReturn.success==false){

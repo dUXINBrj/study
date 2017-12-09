@@ -2,15 +2,8 @@
   <div class="searchContent">
     <el-row :gutter="20">
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择故障类型" placement="bottom">
-        <el-select v-model="searchData.data.errorcasetype" clearable placeholder="请选择故障类型">
-          <el-option
-            v-for="item in errorcasetypeOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <el-tooltip class="item" effect="dark" content="请输入告警编号" placement="bottom">
+          <el-input placeholder="请输入告警编号" v-model="searchData.data.devicewarningcaseid"></el-input>
         </el-tooltip>
       </el-col>
       <el-col :span="5">
@@ -25,7 +18,7 @@
           </el-select>
         </el-tooltip>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请选择模式" placement="bottom">
           <el-select v-model="searchData.data.isteststatus" clearable placeholder="请选择模式">
             <el-option
@@ -37,7 +30,7 @@
           </el-select>
         </el-tooltip>
       </el-col>
-      <el-col :span="5">
+      <el-col :span="4">
         <el-tooltip class="item" effect="dark" content="请选择设备系统" placement="bottom">
           <el-select v-model="searchData.data.devicetypeid" clearable placeholder="请选择设备系统">
             <el-option
@@ -71,11 +64,6 @@
         </el-tooltip>
       </el-col>
       <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请输入故障编号" placement="bottom">
-          <el-input placeholder="请输入故障编号" v-model="searchData.data.errorcaseid"></el-input>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="4">
         <el-tooltip class="item" effect="dark" content="请选择服务单位" placement="bottom">
         <el-select v-model="searchData.data.fireserviceorgid" clearable placeholder="请选择服务单位">
           <el-option
@@ -99,7 +87,11 @@
         </el-select>
         </el-tooltip>
       </el-col>
-
+      <el-col :span="4">
+        <el-tooltip class="item" effect="dark" content="请输入主属性名称" placement="bottom">
+          <el-input placeholder="请输入主属性名称" v-model="searchData.data.warn_mainattribute"></el-input>
+        </el-tooltip>
+      </el-col>
       <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请输入设备编码" placement="bottom">
           <el-input placeholder="请输入设备编码" v-model="searchData.data.devicecode"></el-input>
@@ -109,31 +101,7 @@
     <el-row :gutter="20" v-show="showMore">
       <el-col :span="5">
         <el-tooltip class="item" effect="dark" content="请输入设备名称" placement="bottom">
-          <el-input placeholder="请输入设备名称" v-model="searchData.data.errordevicename"></el-input>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择上报状态" placement="bottom">
-        <el-select v-model="searchData.data.errorrealtimestatus" clearable placeholder="请选择上报状态">
-          <el-option
-            v-for="item in firerealtimestatusOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="4">
-        <el-tooltip class="item" effect="dark" content="请选择有效状态" placement="bottom">
-        <el-select v-model="searchData.data.effective_status" clearable placeholder="请选择有效状态">
-          <el-option
-            v-for="item in effective_statusOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+          <el-input placeholder="请输入设备名称" v-model="searchData.data.warndevicename"></el-input>
         </el-tooltip>
       </el-col>
       <el-col :span="10">
@@ -151,23 +119,6 @@
         </el-tooltip>
       </el-col>
     </el-row>
-    <el-row :gutter="20" v-show="showMore">
-      <el-col :span="5">
-        <el-tooltip class="item" effect="dark" content="请选择关闭人" placement="bottom">
-        <el-select v-model="searchData.data.dealwithuserid" v-show="mode=='history'" clearable placeholder="请选择关闭人">
-          <el-option
-            v-for="item in dealwithuseridOption"
-            :key="item.userid"
-            :label="item.useraccount"
-            :value="item.userid">
-          </el-option>
-        </el-select>
-        </el-tooltip>
-      </el-col>
-      <el-col :span="5">
-
-      </el-col>
-    </el-row>
   </div>
 </template>
 <script>
@@ -183,21 +134,6 @@ export default {
       devicetypeidOption:[],
       devicesubtypeidOption:[],
       buildingidOption:[],
-      effective_statusOption:[{
-        value:0,
-        label:'全部'
-      },{
-        value:1,
-        label:'启用'
-      }],
-      dealwithuseridOption:[],
-      errorcasetypeOption:[{
-        value:1,
-        label:'设备故障'
-      },{
-        value:2,
-        label:'主机故障'
-      }],
       isteststatusOption:[{
         value:-1,
         label:'全部'
@@ -207,16 +143,6 @@ export default {
       },{
         value:-1,
         label:'测试模式'
-      }],
-      firerealtimestatusOption:[{
-        value:-1,
-        label:'全部'
-      },{
-        value:2,
-        label:'未恢复'
-      },{
-        value:0,
-        label:'已恢复'
       }],
       pickerOptions2: {
         shortcuts: [{
@@ -270,16 +196,15 @@ export default {
       });
     this.getDeviceType();
     this.findBuildingInfo();
-    this.findDealWithUsername();
   },
   methods:{
     search(){
       if(this.casebegintime!=null){
         this.searchData.data.casebegintime=this.casebegintime[0];
-        this.searchData.data.casebegintimeend=this.casebegintime[1];
+        this.searchData.data.caseendtime=this.casebegintime[1];
       }else{
         this.searchData.data.casebegintime='';
-        this.searchData.data.casebegintimeend='';
+        this.searchData.data.caseendtime='';
       }
       //如果当前页为1则主动去触发搜索事件
       //不为1的情况下通过更改当前页 触发当前页更改事件 间接触发搜索
@@ -291,21 +216,18 @@ export default {
       }
     },
     reset(){
-      this.searchData.data.errorcaseid='';
+      this.searchData.data.devicewarningcaseid='';
       this.searchData.data.devicecode='';
-      this.searchData.data.errordevicename='';
-      this.searchData.data.errorcasetype='';
+      this.searchData.data.warn_mainattribute='';
+      this.searchData.data.warndevicename='';
       this.searchData.data.devicetypeid='';
       this.searchData.data.devicesubtypeid='';
       this.searchData.data.fireserviceorgid='';
       this.searchData.data.userorgid='';
       this.searchData.data.buildingid='';
-      this.searchData.data.errorrealtimestatus='';
-      this.searchData.data.dealwithuserid='';
       this.searchData.data.isteststatus='';
-      this.searchData.data.effective_status='';
       this.searchData.data.casebegintime='';
-      this.searchData.data.casebegintimeend='';
+      this.searchData.data.caseendtime='';
       this.searchData.data.timestatus='';
       this.searchData.data.currentPageNow=1;
       this.casebegintime=null;
@@ -394,48 +316,6 @@ export default {
           });
         });
     },
-    findDealWithUsername(){
-      let _this=this;
-      this.$http.get(_this.$lib.fire.findDealWithUsername,{type:'fireCase'})
-        .then(function(res){
-          if(res.data.WSListReturn.success==false){
-            _this.$msg({
-              message: '获取数据失败',
-              type: 'error'
-            });
-            return false;
-          }
-          let root=res.data.WSListReturn.root;
-          _this.dealwithuseridOption=root;
-        })
-        .catch(function(err){
-          _this.$msg({
-            message: '获取数据失败',
-            type: 'error'
-          });
-        });
-    },
-    findCloseUsername(){
-      let _this=this;
-      this.$http.get(_this.$lib.fire.findCloseUsername)
-        .then(function(res){
-          if(res.data.WSListReturn.success==false){
-            _this.$msg({
-              message: '获取数据失败',
-              type: 'error'
-            });
-            return false;
-          }
-          let root=res.data.WSListReturn.root;
-          _this.dealwithuseridOption=root;
-        })
-        .catch(function(err){
-          _this.$msg({
-            message: '获取数据失败',
-            type: 'error'
-          });
-        });
-    }
   },
   watch:{
     devicetypeid(val){
@@ -476,11 +356,6 @@ export default {
       deep:true
     },
     mode(val){
-      if(val=='now'){
-        this.searchData.data.closeuserid='';
-      }else{
-        this.findCloseUsername();
-      }
       this.reset();
     }
   }

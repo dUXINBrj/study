@@ -57,7 +57,6 @@
       <p>故障发生时间：{{detailData.casebegintime | date}}</p>
       <p>当前上报状态：{{detailData.errorrealtimestatus | errorrealtimestatus}}</p>
       <p>故障状态：{{detailData.errorcasestatus | errorcasestatus}}</p>
-      <p>模式：{{detailData.isteststatus | isteststatus}}</p>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">关 闭</el-button>
       </span>

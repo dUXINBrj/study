@@ -100,6 +100,11 @@
       },
       search(){
         this.isloading=true;
+        if(this.searchData.data.casebegintime=='' && this.searchData.data.casebegintimeend==''){
+          this.searchData.data.timestatus='';
+        }else{
+          this.searchData.data.timestatus=5;
+        }
         if(this.tableMode=='now'){
           this.searchData.data.errorcasestatus=0;
         }else{

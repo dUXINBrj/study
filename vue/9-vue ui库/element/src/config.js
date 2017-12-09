@@ -39,6 +39,9 @@ export default {
     findCloseUsername:'/static/store/findCloseUsername.json',
     findDeviceFireCasePage:'/static/store/findDeviceFireCasePage.json'
   },
+  warn:{
+    findDeviceWarningCase:'/static/store/finddevicewarningcase.json'
+  },
   error:{
     findErrorCase:'/static/store/finderrorcase.json'
   }
