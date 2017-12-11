@@ -13,6 +13,7 @@
         <canvas id="demo-canvas"></canvas>
         <div class="main-title animated bounceInDown">
           <h1>Login</h1>
+          <form action="/fireinfo/user/login.do">
           <div>
             <input type="text" name="useraccount" class="username" placeholder="请输入用户名" autocomplete="off"/>
           </div>
@@ -25,7 +26,8 @@
               <img src="/fireinfo/AuthImage" id="VerificationImg" onclick="getVerificationImg()">
             </div>
           </div>
-          <button id="submit" type="button">Sign in</button>
+          <button id="submit" type="submit">Sign in</button>
+          </form>
         </div>
       </div>
     </div>

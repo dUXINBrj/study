@@ -327,8 +327,12 @@
               _this.treeDblClick=false;
             },300)
           }else{
-            console.log(1);
-            return false;
+            this.$router.push({
+              path:'/index/level2map',
+              query: {
+                buildingID: data.id
+              }
+            });
           }
           this.map.panTo(new BMap.Point(data.gisx,data.gisy));
           let overlays=this.map.getOverlays();
