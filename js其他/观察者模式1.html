@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+//实现以下效果
+//Event.on('test',function(){
+//  console.log('test');
+// })
+//Event.on('test',function(result){
+//  console.log(result);
+// })
+//Event.emit('test','Hello Word');
+//输出 'test,Hello Word'
+var Event={
+    handles:{},
+    on:function (eventName,callback) {
+        if(!this.handles[eventName]){
+            this.handles[eventName]=[];
+        }
+        this.handles[eventName].push(callback);
+    },
+    emit:function (eventName) {
+        if(this.handles[arguments[0]]){
+            for(var i=0;i<this.handles[arguments[0]].length;i++){
+                this.handles[arguments[0]][i](arguments[1]);
+            }
+        }
+    }
+}
+</script>
+</html>
