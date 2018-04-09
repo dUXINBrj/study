@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>prototype&call</title>
+</head>
+<body>
+
+</body>
+<script>
+    function teacher(name,age) {
+        this.name=name;
+        this.age=age;
+    }
+    teacher.prototype.sayName=function () {
+        alert('name: '+this.name);
+    }
+    teacher.prototype.sayAge=function () {
+        alert('age: '+this.age);
+    }
+    function student() {
+        var args=arguments;
+        teacher.call(this,args[0],args[1]);
+    }
+    student.prototype=new teacher();
+    var student1=new student('MM',24);
+    student1.sayName();
+    student1.sayAge();
+</script>
+</html>

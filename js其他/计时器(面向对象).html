@@ -8,7 +8,7 @@
  <body>
   <div><span id="hour0">0</span>小时</div>
   <div><span id="minute0">0</span>分</div>
-  <div><span id="seconds0">10</span>秒</div>
+  <div><span id="seconds0">0</span>秒</div>
   <br/>
   <div><span id="hour1">1</span>小时</div>
   <div><span id="minute1">31</span>分</div>
@@ -68,10 +68,10 @@ msTimeCount.prototype={
   var _this=this;
   var tmpTimeCount=setInterval(
    function(){
-    _this._totalSeconds--; //这里改成++就变成计时
+    _this._totalSeconds++; //这里改成++就变成计时
     //alert(_this._totalSeconds);
     _this.refreshTime();
-    if(_this._totalSeconds<1){
+    if(_this._totalSeconds>600){
      clearInterval(tmpTimeCount);
      return;
     }
@@ -94,7 +94,7 @@ msTimeCount.prototype={
  }
 }
 var timeCount0=new msTimeCount();
-timeCount0.init([0,0,10],["hour0","minute0","seconds0"]);
+timeCount0.init([0,0,0],["hour0","minute0","seconds0"]);
 var timeCount1=new msTimeCount();
 timeCount1.init([1,31,31],["hour1","minute1","seconds1"]);
 var timeCount2=new msTimeCount();

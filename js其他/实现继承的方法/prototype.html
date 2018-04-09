@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>prototype</title>
+</head>
+<body>
+
+</body>
+<script>
+    function teacher(name) {
+        this.name=name;
+    }
+    teacher.prototype.sayName=function () {
+        console.log('name is '+this.name);
+    }
+    var teacher1=new teacher('LL');
+    teacher1.sayName();
+    function student(name) {
+        this.name=name;
+    }
+    student.prototype=new teacher();
+    var student1=new student('MM');
+    student1.sayName();
+</script>
+</html>

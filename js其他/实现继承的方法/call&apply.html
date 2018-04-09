@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>call&apply</title>
+</head>
+<body>
+
+</body>
+<script>
+//obj.call(thisObj, arg1, arg2, ...);
+//obj.apply(thisObj, [arg1, arg2, ...]);
+//猫吃鱼，狗吃肉，奥特曼打小怪兽。
+//
+//有天狗想吃鱼了
+//
+//猫.吃鱼.call(狗，鱼)
+//
+//狗就吃到鱼了
+//
+//猫成精了，想打怪兽
+//
+//奥特曼.打小怪兽.call(猫，小怪兽)
+
+  function teacher(name,age) {
+      this.name=name;
+      this.age=age;
+      this.sayhi=function () {
+          alert('name:'+name+' age:'+age);
+      }
+  }
+  function student() {
+      var args=arguments;
+      teacher.call(this,args[0],args[1]);
+//      teacher.apply(this,args);
+  }
+  var student1=new student('LL',23);
+  student1.sayhi();
+</script>
+</html>
