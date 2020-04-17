@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+class Node {
+  constructor(item) {
+    this.element = item;
+    this.next = null;
+  }
+}
+class LinkList {
+  constructor(item) {
+    this.head = new Node(item)
+  }
+  find(item) {
+    let curNode = this.head;
+    while(curNode.element !== item) {
+      curNode = curNode.next;
+    }
+    return curNode;
+  }
+  insert(newItem, item) {
+    var newNode = new Node(newItem);
+    var curNode = this.find(item);
+    newNode.next = curNode.next;
+    curNode.next = newNode;
+  }
+  findPrev(item) {
+    var curNode = this.head;
+    while(curNode.next !== null && curNode.next.element !== item) {
+      curNode = curNode.next;
+    }
+    return curNode;
+  }
+  remove(item) {
+    var prevNode = this.findPrev(item);
+    var curNode = this.find(item);
+    if (curNode !== null) {
+      prevNode.next = curNode.next;
+    }
+  }
+  display() {
+    var curNode = this.head;
+    while(curNode.next !== null) {
+      console.log(curNode);
+      curNode = curNode.next;
+    }
+  }
+}
+var fruit = new LinkList('fruit');
+fruit.insert('apple', 'fruit');
+fruit.insert('orange', 'apple');
+fruit.insert('banana', 'orange');
+fruit.display();
+</script>
+</html>
